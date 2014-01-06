@@ -1,0 +1,232 @@
+HOST: http://api4.skypicker.com/
+
+--- Skypicker public api ---
+
+CORS is allowed from the /places and /flights calls<br /> 
+
+List places from which you can fly.<br /> 
+places can be filtered with parametes term for the <br /> 
+beginning of a string and locale for language (en,cs) currently
+
+sample call
+http://api4.skypicker.com/places?term=as&locale=en
+GET /places
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ "data": [
+    { "numberOfAirports": 1, "id": "SI", "parentId": null, "type": 1, "value": "Slovenia" },
+    { "numberOfAirports": 1, "id": "LGW", "parentId": "london", "type": 0, "value": "London Gatwick (LGW)" }
+], "count": 2
+}
+
+The following is a section of resources related to flights<br /> 
+Sample call:<br /> 
+http://api4.skypicker.com/flights?flyFrom=CZ&to=PL&dateFrom=06%2F09%2F2013&<br /> 
+dateTo=06%2F10%2F2013&daysInDestinationFrom=2&daysInDestinationTo=9&onlyWeekends=1<br /> 
+&onlyWorkingDays=1&directFlights=0&typeFlight=oneway&locale=en <br /> 
+
+
+<strong>Params:</strong>     <br /> 
+Range of dates of departure.<br />
+dateFrom:28/11/2012 <br /> 
+dateTo:28/12/2012   <br /> 
+
+If you want to search for departures within single day, use the same value for both dateFrom and dateTo.
+
+<br />
+<strong>Departure and arrival location</strong>    <br /> 
+
+<u>Destination by id</u><br/>
+flyFrom=CZ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>api code from the /places call</i> <br /> 
+to=Porto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>api code from the /places call</i>   <br /> 
+
+or<br />
+
+<u>Search within radius</u><br/>
+longitudeFrom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>center point longitude of radius</i> <br /> 
+latitudeFrom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>center point latitude of radius</i> <br /> 
+radiusFrom&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>size of radius</i> <br /> 
+<br />
+    longitudeTo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>center point longitude of radius</i> <br />
+    latitudeTo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>center point latitude of radius</i> <br />
+    radiusTo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>size of radius</i> <br />
+<br />
+locale=en&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localization of the city names <br />
+<br />
+
+<strong>Round trips:</strong><br/>
+
+<u>Length of stay</u><br /> 
+daysInDestinationFrom: 2 <br />
+daysInDestinationTo: 9  <br />
+
+or
+<br/>
+
+<u>Range of return dates</u>    <br />
+returnFrom:28/11/2012   <br />
+returnTo:28/12/2012     <br />
+<br/>
+If you want to search for departures within single day, use the same value for both dateFrom and dateTo.
+<br />
+
+<strong>Return only the cheapest flight for each city (relevant for search within wider geographical area)</strong>     <br />
+
+oneforcity= 0/1     <br /><br />
+
+<strong>Number of passengers</strong>    <br />
+passengers= 0/1/2....    <br /><br />
+
+<strong>Days of week of the departue, 0 is sunday.. 6 is saturday</strong>
+
+<br />
+flyDays[]=0&flyDays[]=2&flyDays[]=3    <br /><br />
+<strong>Other parameters</strong>     <br />
+typeFlight:oneway/round <br />
+onlyWorkingDays:0/1 <br /> 
+onlyWeekends:0/1    <br /> 
+directFlights:0/1   <br />
+<br/>
+<strong>A few notes</strong>
+<ul>
+<li>the id is needed for booking the flight, see the flight booking section</li>
+<li>values cityFrom and cityTo in the flight detail data are the translations of the city names, can be changed with the locale parameter</li>
+<li>lat and lon are the coordinates of the cities, not the airports</li>
+<li>aTime and dTime is always local time</li>
+<li>aTimeUTC and dTimeUTC is always GMT time</li>
+<li>for the round trips, nightsInDest is the number of nights spent in the destination before flying back<br />
+<li>for one-way flights, nightsInDest is Null</li> <br />
+<li>fly_duration and return_duration are the durations of the flights there and back durations</li>
+
+##!!!Tomuhle nerozumim!!!
+list of flights for a trip is in data:route <br /> 
+List flights you can book.
+
+
+GET /flights
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{
+    "connections":[],
+    "data":[
+        {
+            "aTimeUTC":1389991800,
+            "nightsInDest":9,
+            "price":1206.0,
+            "id":"6920231|8471735|7234312|7880249",
+            "dTime":1389902400,
+            "fly_duration":"24h 50m",
+            "cityTo":"New York",
+            "cityFrom":"London",
+            "return_duration":"16h 20m",
+            "aTime":1389991800,
+            "flyFrom":"LHR",
+            "flyTo":"JFK",
+            "dTimeUTC":1389902400,
+            "route":[
+                {
+                    "aTimeUTC":1389909000,
+                    "dTimeUTC":1389902400,
+                    "cityFrom":"London",
+                    "mapIdfrom":"london",
+                    "mapIdto":"berlin",
+                    "dTime":1389902400,
+                    "id":"6920231",
+                    "price":60.0,
+                    "latFrom":51.5073,
+                    "airline":"4U",
+                    "lngTo":13.4061,
+                    "cityTo":"Berlin",
+                    "return":0,
+                    "lngFrom":-0.127683,
+                    "aTime":1389909000,
+                    "flyFrom":"LHR",
+                    "flyTo":"TXL",
+                    "latTo":52.5192
+                },
+                {
+                    "aTimeUTC":1389991800,
+                    "dTimeUTC":1389960000,
+                    "cityFrom":"Berlin",
+                    "mapIdfrom":"berlin",
+                    "mapIdto":"new_york",
+                    "dTime":1389960000,
+                    "id":"8471735",
+                    "price":460.0,
+                    "latFrom":52.5192,
+                    "airline":"AB",
+                    "lngTo":-73.7789,
+                    "cityTo":"New York",
+                    "return":0,
+                    "lngFrom":13.4061,
+                    "aTime":1389991800,
+                    "flyFrom":"TXL",
+                    "flyTo":"JFK",
+                    "latTo":40.6398
+                },
+                {
+                    "aTimeUTC":1390804200,
+                    "dTimeUTC":1390863000,
+                    "cityFrom":"New York",
+                    "mapIdfrom":"new_york",
+                    "mapIdto":"berlin",
+                    "dTime":1390863000,
+                    "id":"7234312",
+                    "price":503.0,
+                    "latFrom":40.6398,
+                    "airline":"AB",
+                    "lngTo":13.4061,
+                    "cityTo":"Berlin",
+                    "return":1,
+                    "lngFrom":-73.7789,
+                    "aTime":1390804200,
+                    "flyFrom":"JFK",
+                    "flyTo":"TXL",
+                    "latTo":52.5192
+                },
+                {
+                    "aTimeUTC":1390849500,
+                    "dTimeUTC":1390842600,
+                    "cityFrom":"Berlin",
+                    "mapIdfrom":"berlin",
+                    "mapIdto":"london",
+                    "dTime":1390842600,
+                    "id":"7880249",
+                    "price":50.0,
+                    "latFrom":52.5192,
+                    "airline":"4U",
+                    "lngTo":-0.127683,
+                    "cityTo":"London",
+                    "return":1,
+                    "lngFrom":13.4061,
+                    "aTime":1390849500,
+                    "flyFrom":"TXL",
+                    "flyTo":"LHR",
+                    "latTo":51.5073
+                }
+            ]
+        }
+    ]
+    "time" : 1
+}
+
+flight booking<br /> 
+sample call<br /> 
+https://booking.skypicker.com/frontend/?flights=6011528,5649048&price=74.47&aff=skypicker    <br /> 
+
+basically, you just send the users to our booking page and we handle all the stuff for you  <br /> 
+
+please use your affil id, if you have your own design implemented on our side, the user     <br /> 
+will see it only if the affil id is given in the url    <br /> 
+
+the basic url is always <br /> 
+https://booking.skypicker.com/frontend/ <br /> 
+and parameters are  <br /> 
+flights         #list of flight ids I want to book, as seen in the sample call  <br /> 
+price           #the price parameter from search    <br /> 
+aff          #your affiate id    <br /> 
+GET /frontend
+> Accept: application/json
+< 200
