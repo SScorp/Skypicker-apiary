@@ -4,6 +4,22 @@ HOST: https://api2.skypicker.com
 # Skypicker.com API
 Skypicker.com flights search API
 
+# GET /places{/id}
+
+Returns the list of Skypicker api ids
+
++ Parameters
+    + id = `CZ` (optional, string) ... if given, the call returns the details only for the one specific id
+    
++ Response 200
+    {
+        "numberOfAirports": 4,
+        "type": 1,
+        "id": "CZ",
+        "value": "Czech Republic",
+        "parentId": "parent"
+    }
+
 
 # GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale}
 
