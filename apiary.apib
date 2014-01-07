@@ -1,16 +1,26 @@
-FORMAT: 1A
+FORMAT: X-1A
 HOST: http://api2.skypicker.com/
 
 
-## GET flights/{flyfrom,to,datefrom,dateto}
+## GET flights/{flyfrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom}
 
 + Parameters
 
     + flyFrom = `CZ` (required, string) ... Skypicker api id of the departure destination
     + to = `porto` (required, string) ... Skypicker api id of the arrival destination
-    + datefrom = `20` (required, string) ... search flights from this date
-    + dateto = `20` (required, string) ... search flights until this date
+    + datefrom = `08/02/2014` (required, string) ... search flights from this date (dd/mm/YYYY)
+    + dateto = `08/03/2014` (required, string) ... search flights until this date (dd/mm/YYYY)
     
+    + longitudeFrom = `14.0000` (optional, float) ... longitude of the pinpoint for geo based search, for the departure destination
+    + latitudeFrom = `50.2000` (optional, float) ... lat of the pinpoint for geo based search, fot the departure destination
+    + radiusFrom = `200` (optional, integer) ... search radius in km, max 250
+    
+    + longitudeTo = `14.0000` (optional, float) ... longitude of the pinpoint for geo based, for the arrival destination
+    + latitudeTo = `50.2000` (optional, float) ... lat of the pinpoint for geo based search, for the arrival destination
+    + radiusTo = `200` (optional, integer) ... search radius in km, max 250
+    
+            
+
     
     
 ...
