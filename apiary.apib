@@ -1,7 +1,24 @@
 HOST: http://api2.skypicker.com/
 
---- Skypicker public api ---
+--- Skypicker flights search api ---
+ 
+# Login [/users/login]
+## Make Login [POST]
 
+
+## GET
+
++ Parameters
+
+    + flyFrom = `CZ` (required, string) ... Skypicker api id of the departure destination
+    + to = `porto` (required, string) ... Skypicker api id of the arrival destination
+    + datefrom = `20` (required, string) ... search flights from this date
+    + dateto = `20` (required, string) ... search flights until this date
+    
+    
+    
+    
+    
 CORS is allowed from the /places and /flights calls<br /> 
 
 List places from which you can fly.<br /> 
@@ -10,6 +27,7 @@ beginning of a string and locale for language (en,cs) currently
 
 sample call
 http://api4.skypicker.com/places?term=as&locale=en
+
 GET /places
 > Accept: application/json
 < 200
@@ -104,7 +122,7 @@ list of flights for a trip is in data:route <br />
 List flights you can book.
 
 
-GET /flights
+GET /flights_old
 > Accept: application/json
 < 200
 < Content-Type: application/json
