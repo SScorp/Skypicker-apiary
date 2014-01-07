@@ -4,7 +4,7 @@ FORMAT: 1A
 Skypicker.com flights search API
 
 
-# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo}
+# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity}
 
 A single flights search
 
@@ -18,11 +18,36 @@ A single flights search
     + longitudeFrom = `14.0000` (optional, float) ... longitude of the pinpoint for geo based search, for the departure destination
     + latitudeFrom = `50.2000` (optional, float) ... lat of the pinpoint for geo based search, fot the departure destination
     + radiusFrom = `200` (optional, integer) ... search radius in km, max 250
-    
+        (radiusFrom works only with longitudeFrom and latitudeFrom. In this case, the **flyFrom** parameter is ignored)
+        
     + longitudeTo = `14.0000` (optional, float) ... longitude of the pinpoint for geo based, for the arrival destination
     + latitudeTo = `50.2000` (optional, float) ... lat of the pinpoint for geo based search, for the arrival destination
     + radiusTo = `200` (optional, integer) ... search radius in km, max 250
+        (radiusTo works only with longitudeTo and latitudeTo. In this case, the **to** parameter is ignored)
     
+    + daysInDestinationFrom = `2` (optional, integer) ... the minimal length of stay in the destination given in the **to** parameter
+    + daysInDestinationTo = `14` (optional, integer) ... the max length of stay in the destination given in the **to** parameter
+        (use only one from the daysInDestination and returnFrom/returnTo parameters. If both of them are given, the API uses the daysInDest parameters
+        and the return dates are ignored)
+    
+    + returnFrom = `08/02/2014` (optional, string) ... min return of the whole trip (dd/mm/YYYY)
+    + returnTo = `08/03/2014` (optional, string) ... max return date of the whole trip (dd/mm/YYYY)
+    
+    + typeFlight = `oneway` (optional, string) ... switch for oneway/round flights search - will be deprecated in the near future
+        (until then, you have to use the round parameter if one from the daysInDestination of returndate parameters is given.)
+        
+        + Values
+            + `round`
+            + `oneway`
+            
+    
+    + oneforcity = `0` (optional, boolean) ... filters out the cheapest flights to every city covered by the **to** parameter
+    
+    + passengers = `1` (optional, integer) ... number of passengers
+    
+    + flyDays  = `[0,1,2,3,4,5,6]` (optional, list) ... the list of days for the departure (0-Sunday)
+        (url encoded format for all days flyDays%5B%5D=0&flyDays%5B%5D=1&flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&flyDays%5B%5D=5&flyDays%5B%5D=6)
+        
 + Response 200
             
 
