@@ -4,12 +4,14 @@ HOST: https://api2.skypicker.com
 # Skypicker.com API
 Skypicker.com flights search API
 
-# GET /places{/id}
+# GET /places{/id,?term,?locale}
 
 Returns the list of Skypicker api ids
 
 + Parameters
     + id = `CZ` (optional, string) ... if given, the call returns the details only for the one specific id
+    + term = `br` (optional, string) ... used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
+    + locale = `cs` (optional, string) ... the locale of geo names in response, default is en
     
 + Response 200
     {
