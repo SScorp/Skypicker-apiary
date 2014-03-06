@@ -26,6 +26,7 @@ Returns the list of Skypicker api ids
 # GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale}
 
 A single flights search
+The google flights like filters are not well documented and even not tested for properly functioning, yet. 
 
 + Parameters
 
@@ -83,7 +84,6 @@ A single flights search
             + `fr`
 
 
-    These filters are not well documented and even not tested for properly functioning, yet
     + price_from = `1` (optional, integer) ... result filter, minimal price
     + price_to = `10000` (optional, integer) ... result filter, maximal price
 
