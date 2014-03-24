@@ -207,6 +207,43 @@ The google flights like filters are not well documented and even not tested for 
 
 Checks the prices of given flights in realtime. Returns all the data about flights
 
+## Flow used on frontend
+
+
+1. User opens the flight details, this could be done by a) clicking on "Book" in results b) accessing url that contains flight_id
+
+2. Front-end calls /check_flight to get information about flight (not just check, as the name suggest, but all the information)
+
+3. Front-end renders the Summary view about flight and booking form
+
+4. Front-end repeatedly calls /check_flight (every 15s) and update Summary (price can change)... it also remembers flight_checked from last response
+
+5. Front-end also manually calls /check_flight when user changes some important booking input (number of passengers, number of bags)
+
+
+```
+If front-end receives flight_invalid = true in any response, it will exit booking form.
+
+flight_checked value is only for remembered, but not yet acted upon
+```
+
+## After the User clicks on "Book" button
+
+1. Form validation happens, if everything is OK, go to next step, otherwise prompt user to check form
+
+2. If last value of flight_check was false, wait for next response of /check_flight and try to repeat
+
+3. Only if last response of /check_flight flight_checked was true, Front-end will send form to /save_booking back-end
+
+4. Back-end should check price on its own and only return successful response if price was checked, if price cannot be checked, return error message (code 510)
+
+5. If front-end will receive success from /save_booking, it will show payment options.
+
+6. In the meantime, periodic /check_flight still occurs and if flight_invalid is sent from backend, booking is exited on front-end
+
+
+
+
 + Parameters
     + pnum = 1 (optional, integer) ... number of passengers
     + bnum = 0 (optional, integer) ... number of bags
