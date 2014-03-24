@@ -321,6 +321,95 @@ flight_checked value is only for remembered, but not yet acted upon
 
 Saves the user data from the booking form and returns a booking id
 
+The POST should contain the defined parameters in the following json
+The response is same as for check_flights, only has booking_id added
+
+```
+{"lang":"en",
+ "bags":1,
+ "passengers":[
+    {"surname":"Doe",
+     "name":"John",
+     "title":"mr",
+     "cardno":"246543",
+     "checkin":"passport",
+     "birthday":1141430400,
+     "expiration":1525132800,
+     "nationality":"Czech Republic",
+     "issuer":"Czech Republic",
+     "email":"martin@skypicker.com",
+     "phone":"123456786"}
+ ],
+ "price":66.33,
+ "flights":["6111482"]}
+```
+
+
++ Parameters
+    + lang (required, string) ... the booking language
+    + bags (required, string) ... the number of bags
+    + price (required, integer) ... the booking price, which was accepted by user
+    + flights (required, string) ... the list of flights IDs, separated by commas
+    + passengers (required, integer) ... number of passengers
+
+
++ Response 200
+    {
+    "flights_price": 190.98,
+    "fee_airline": 0.0, 
+    "flights_invalid": false,
+    "luggage": [56, 45, 25, 15, 20], 
+    "flights_checked": false,
+    "sp_fee": 24.01,
+    "one_passenger": 240.13,
+    "flights": [
+        {"dtime_unix": 1398519900,
+        "atime_unix": 1398525300,
+        "airnum": 3,
+        "dtime": 1398519900.0,
+        "currency": "EUR",
+        "id": 8996576,
+        "atime_utc": 1398518100.0, 
+        "scraping_start": 1395318317.0,
+        "dst": "MXP",
+        "invalid": null,
+        "checkin": 1395927900.0,
+        "fromid": 1382,
+        "dtime_utc": 1398512700.0,
+        "eur": 190.98,
+        "check_ended": null,
+        "timestamp": 1395539714.0,
+        "price": 190.98,
+        "flydate": null,
+        "src_name": "Paris",
+        "atime": 1398525300.0,
+        "src": "CDG",
+        "atime_waiting": null,
+        "dst_name": "Milan",
+        "flyuniquekey": "src:CDG_dst:MXP_dtime:2014-04-26 13:45:00_ar:U2",
+        "toid": 1524,
+        "time_between": null,
+        "airline":
+            {"hand_length": 56,
+            "name": "easyJet", 
+            "url": "http://www.easyjet.com",
+            "checkin": 30,
+            "iata": "U2",
+            "iatacode": "U2",
+            "hand_weight": 15,
+            "hold_weight": 20,
+            "hand_height": 25,
+            "hand_width": 45,
+            "id": 3,
+            "Name": "easyJet"},
+        "disabled": null}
+        ],
+        "bags_fee": 0.0,
+        "server_time": 1395678524.0,
+        "book_fee": 25.14,
+        "total": 240.13,
+        "booking_id": 1212}
+}
 
 # POST /paymill_payment{/booking_id,?token,?sandbox}
 
