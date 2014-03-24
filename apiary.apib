@@ -4,7 +4,7 @@ HOST: https://api2.skypicker.com
 # Skypicker.com API
 Skypicker.com flights search API
 
-# GET /places{/id,?term,?locale}
+# GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds}
 
 Returns the list of Skypicker api ids
 
@@ -12,6 +12,8 @@ Returns the list of Skypicker api ids
     + id = `CZ` (optional, string) ... if given, the call returns the details only for the one specific id
     + term = `br` (optional, string) ... used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
     + locale = `cs` (optional, string) ... the locale of geo names in response, default is en
+    + zoomLevelThreshold = `3` (optional, integer) ... zoom level on which this place should be shown
+    + bounds = `lat_lo,lng_lo,lat_hi,lng_hi` (optional, string) ... filter only places in these bounds. "lo" corresponds to the southwest corner of the bounding box, "hi" corresponds to the northeast corner of that box
     
 + Response 200
     {
@@ -19,7 +21,8 @@ Returns the list of Skypicker api ids
         "type": 1,
         "id": "CZ",
         "value": "Czech Republic",
-        "parentId": "parent"
+        "parentId": "parent",
+        "zoomLevelThreshold": 3
     }
 
 
