@@ -207,7 +207,14 @@ The google flights like filters are not well documented and even not tested for 
 
 Checks the prices of given flights in realtime. Returns all the data about flights
 
-## Flow used on frontend
+
+## Basic SP booking flow (simplified)
+1. call check_flights until flights_check is not True
+2. watch for flights_invalid to be False (if this is going to be True, one or more of the flights doesnt exist anymore and the whole trip is unbookable)
+3. if flights_check is True and flights_invalid is False, book the flight
+
+
+## Flow used on frontend (as an working implementation example)
 
 
 1. User opens the flight details, this could be done by a) clicking on "Book" in results b) accessing url that contains flight_id
