@@ -413,10 +413,10 @@ The response is same as for check_flights, only has booking_id added
 
 # POST /paymill_payment{/booking_id,?token,?sandbox}
 
-Saves the user data from the booking form and returns a booking id
+Makes a paymill transaction
 
 + Parameters
-    + booking_id (required, integer) ... the booking id you gor from save_booking
+    + booking_id (required, integer) ... the booking id you got from save_booking
     + token (required, string) ... the random string generated from the payment gateway used for payment (depends on the gateway)
     + sandbox (optional, bool) ... use sandbox for payment
 
@@ -425,10 +425,10 @@ Saves the user data from the booking form and returns a booking id
 
 # POST /zooz_payment{/booking_id,?token,?sandbox}
 
-Saves the user data from the booking form and returns a booking id
+Makes a zooz transaction ( the implementation is done on frontend)
 
 + Parameters
-    + booking_id (required, integer) ... the booking id you gor from save_booking
+    + booking_id (required, integer) ... the booking id you got from save_booking
     + token (required, string) ... the random string generated from the payment gateway used for payment (depends on the gateway)
     + sandbox (optional, bool) ... use sandbox for payment
 
