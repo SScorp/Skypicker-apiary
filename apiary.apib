@@ -211,7 +211,7 @@ Checks the prices of given flights in realtime. Returns all the data about fligh
 ## Basic SP booking flow (simplified)
 1. call check_flights until flights_check is not True
 2. watch for flights_invalid to be False (if this is going to be True, one or more of the flights doesnt exist anymore and the whole trip is unbookable)
-3. if flights_check is True and flights_invalid is False, book the flight
+3. if flights_check is True and flights_invalid is False, book the flight with the save_booking API call and pay for it with one of the payment options
 
 
 ## Flow used on frontend (as an working implementation example)
@@ -252,9 +252,9 @@ flight_checked value is only for remembered, but not yet acted upon
 
 
 + Parameters
-    + pnum = 1 (optional, integer) ... number of passengers
-    + bnum = 0 (optional, integer) ... number of bags
-    + flights = `123456,3456789` (optional, string) ... list of Skypicker flight IDs, separated by comma
+    + pnum = `1` (optional, integer) ... number of passengers
+    + bnum = `0` (optional, integer) ... number of bags
+    + flights (required, string) ... list of Skypicker flight IDs, separated by comma
 
 + Response 200
     {
@@ -315,3 +315,34 @@ flight_checked value is only for remembered, but not yet acted upon
 
 
 
+
+
+# POST /save_booking{/pnum,?bnum,?flights}
+
+Saves the user data from the booking form and returns a booking id
+
+
+# POST /paymill_payment{/booking_id,?token,?sandbox}
+
+Saves the user data from the booking form and returns a booking id
+
++ Parameters
+    + booking_id (required, integer) ... the booking id you gor from save_booking
+    + token (required, string) ... the random string generated from the payment gateway used for payment (depends on the gateway)
+    + sandbox (optional, bool) ... use sandbox for payment
+
++ Response 200
+    {"status":"closed"}
+
+# POST /zooz_payment{/booking_id,?token,?sandbox}
+
+Saves the user data from the booking form and returns a booking id
+
++ Parameters
+    + booking_id (required, integer) ... the booking id you gor from save_booking
+    + token (required, string) ... the random string generated from the payment gateway used for payment (depends on the gateway)
+    + sandbox (optional, bool) ... use sandbox for payment
+
+
++ Response 200
+    {"status":"closed"}
