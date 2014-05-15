@@ -1,8 +1,23 @@
 FORMAT: 1A
-HOST: https://www.skypicker.com
+HOST: https://api.skypicker.com
 
 # Skypicker.com API
-Skypicker.com flights search API
+Skypicker.com flights search API.
+
+The default api endpoint is api.skypicker.com . You have to use https, always.
+To implement the basic search, you need only the /places and /flights API calls.
+
+The places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the flyFrom and to parameters. Basically, the IDs are the IATA airport and ISO country codes, 
+but Skypicker uses also its own IDs as the engine can do very specific searches (currently only anywhere and there can be other geo areas specified - "To the sea", "To party places" etc)
+
+The basic places call is this
+
+https://api.skypicker.com/places
+
+The basic flights call could look like this
+
+https:
+
 
 # GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds,?v}
 
