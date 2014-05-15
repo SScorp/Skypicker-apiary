@@ -1,20 +1,23 @@
 FORMAT: 1A
-HOST: https://api2.skypicker.com
+HOST: https://www.skypicker.com
 
 # Skypicker.com API
 Skypicker.com flights search API
 
-# GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds}
+# GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds,?v}
 
-Returns the list of Skypicker api ids
+Returns the list of Skypicker api ids. This ids has to be used in the SP search (flights API call)
+From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), even if they dont appear in the places call
 
 + Parameters
-    + id = `CZ` (optional, string) ... if given, the call returns the details only for the one specific id
+    + id = `SK` (optional, string) ... if given, the call returns the details only for the one specific id
     + term = `br` (optional, string) ... used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
     + locale = `cs` (optional, string) ... the locale of geo names in response, default is en
     + zoomLevelThreshold = `3` (optional, integer) ... zoom level on which this place should be shown
     + bounds = `lat_lo,lng_lo,lat_hi,lng_hi` (optional, string) ... filter only places in these bounds. "lo" corresponds to the southwest corner of the bounding box, "hi" corresponds to the northeast corner of that box
-    
+    + v = 1 (optional, integer)  ... the api version, from v2 it returns the new api ids for the whole world.
+
+ 
 + Response 200
     {
         "numberOfAirports": 4,
@@ -26,7 +29,7 @@ Returns the list of Skypicker api ids
     }
 
 
-# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale}
+# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner}
 
 A single flights search.
 
@@ -76,6 +79,8 @@ The google flights like filters are not well documented and even not tested for 
     + onlyWeekends = `0` (optional, boolean) ... search flights with departure only on weekends 
     + directFlights = `0` (optional, boolean) ... search only for direct flights
 
+    + partner = `picky` (optional, string) ... partner ID. If present, in the result will be also a link to a specific trip directly to skypicker.com, with the affiliate id included (use picky partner ID for testing)
+    
     + locale = `en` (optional, string) ... the language of city names in the response
         (more translations to be added)
         + Values
@@ -104,102 +109,102 @@ The google flights like filters are not well documented and even not tested for 
     
 + Response 200 (application/json)
 
-    {
-    "connections": [],
-    "data": [
         {
-        "aTimeUTC": 1394192700,
-        "price": 134.96,
-        "cityTo": "Porto",
-        "flyFrom": "OSR",
-        "flyTo": "OPO",
-        "dTimeUTC": 1394132400,
-        "nightsInDest": 11,
-        "route": [
-                {
-                "aTimeUTC": 1394140200,
-                "mapIdfrom": "ostrava",
-                "mapIdto": "london",
-                "dTime": 1394136000,
-                "latTo": 51.5073356628,
-                "flyTo": "STN",
-                "return": 0,
-                "id": "8821821",
-                "airline": "FR",
-                "lngTo": -0.1276831031,
-                "cityTo": "Londýn",
-                "cityFrom": "Ostrava",
-                "lngFrom": 18.1110534668,
-                "aTime": 1394140200,
-                "flyFrom": "OSR",
-                "price": 23.4699993134,
-                "latFrom": 49.6962928772,
-                "dTimeUTC": 1394132400 
-                },
-                {
-                "aTimeUTC": 1394192700,
-                "mapIdfrom": "london",
-                "mapIdto": "porto",
-                "dTime": 1394184300,
-                "latTo": 41.2480545044,
-                "flyTo": "OPO",
-                "return": 0,
-                "id": "7709495",
-                "airline": "FR",
-                "lngTo": -8.681388855,
-                "cityTo": "Porto",
-                "cityFrom": "Londýn",
-                "lngFrom": -0.1276831031,
-                "aTime": 1394192700,
-                "flyFrom": "STN",
-                "price": 48.1599998474,
-                "latFrom": 51.5073356628,
-                "dTimeUTC": 1394184300
-                },
-                {
-                "aTimeUTC": 1395133200,
-                "mapIdfrom": "porto",
-                "mapIdto": "london",
-                "dTime": 1395124200,
-                "latTo": 51.5073356628,
-                "flyTo": "STN",
-                "return": 1,
-                "id": "7715638",
-                "airline": "FR",
-                "lngTo": -0.1276831031,
-                "cityTo": "Londýn",
-                "cityFrom": "Porto",
-                "lngFrom": -8.681388855,
-                "aTime": 1395133200,
-                "flyFrom": "OPO",
-                "price": 22.9899997711,
-                "latFrom": 41.2480545044,
-                "dTimeUTC": 1395124200
-                },
-                {
-                "aTimeUTC": 1395167700,
-                "mapIdfrom": "london",
-                "mapIdto": "ostrava",
-                "dTime": 1395159900,
-                "latTo": 49.6962928772,
-                "flyTo": "OSR",
-                "return": 1,
-                "id": "7711562",
-                "airline": "FR",
-                "lngTo": 18.1110534668,
-                "cityTo": "Ostrava",
-                "cityFrom": "Londýn",
-                "lngFrom": -0.1276831031,
-                "aTime": 1395171300,
-                "flyFrom": "STN",
-                "price": 20.4599990845,
-                "latFrom": 51.5073356628,
-                "dTimeUTC": 1395159900
-            }
-        ],
-        "time": 1
-        }]
-    }
+        "connections": [],
+        "data": [
+            {
+            "aTimeUTC": 1394192700,
+            "price": 134.96,
+            "cityTo": "Porto",
+            "flyFrom": "OSR",
+            "flyTo": "OPO",
+            "dTimeUTC": 1394132400,
+            "nightsInDest": 11,
+            "route": [
+                    {
+                    "aTimeUTC": 1394140200,
+                    "mapIdfrom": "ostrava",
+                    "mapIdto": "london",
+                    "dTime": 1394136000,
+                    "latTo": 51.5073356628,
+                    "flyTo": "STN",
+                    "return": 0,
+                    "id": "8821821",
+                    "airline": "FR",
+                    "lngTo": -0.1276831031,
+                    "cityTo": "Londýn",
+                    "cityFrom": "Ostrava",
+                    "lngFrom": 18.1110534668,
+                    "aTime": 1394140200,
+                    "flyFrom": "OSR",
+                    "price": 23.4699993134,
+                    "latFrom": 49.6962928772,
+                    "dTimeUTC": 1394132400 
+                    },
+                    {
+                    "aTimeUTC": 1394192700,
+                    "mapIdfrom": "london",
+                    "mapIdto": "porto",
+                    "dTime": 1394184300,
+                    "latTo": 41.2480545044,
+                    "flyTo": "OPO",
+                    "return": 0,
+                    "id": "7709495",
+                    "airline": "FR",
+                    "lngTo": -8.681388855,
+                    "cityTo": "Porto",
+                    "cityFrom": "Londýn",
+                    "lngFrom": -0.1276831031,
+                    "aTime": 1394192700,
+                    "flyFrom": "STN",
+                    "price": 48.1599998474,
+                    "latFrom": 51.5073356628,
+                    "dTimeUTC": 1394184300
+                    },
+                    {
+                    "aTimeUTC": 1395133200,
+                    "mapIdfrom": "porto",
+                    "mapIdto": "london",
+                    "dTime": 1395124200,
+                    "latTo": 51.5073356628,
+                    "flyTo": "STN",
+                    "return": 1,
+                    "id": "7715638",
+                    "airline": "FR",
+                    "lngTo": -0.1276831031,
+                    "cityTo": "Londýn",
+                    "cityFrom": "Porto",
+                    "lngFrom": -8.681388855,
+                    "aTime": 1395133200,
+                    "flyFrom": "OPO",
+                    "price": 22.9899997711,
+                    "latFrom": 41.2480545044,
+                    "dTimeUTC": 1395124200
+                    },
+                    {
+                    "aTimeUTC": 1395167700,
+                    "mapIdfrom": "london",
+                    "mapIdto": "ostrava",
+                    "dTime": 1395159900,
+                    "latTo": 49.6962928772,
+                    "flyTo": "OSR",
+                    "return": 1,
+                    "id": "7711562",
+                    "airline": "FR",
+                    "lngTo": 18.1110534668,
+                    "cityTo": "Ostrava",
+                    "cityFrom": "Londýn",
+                    "lngFrom": -0.1276831031,
+                    "aTime": 1395171300,
+                    "flyFrom": "STN",
+                    "price": 20.4599990845,
+                    "latFrom": 51.5073356628,
+                    "dTimeUTC": 1395159900
+                }
+            ],
+            "time": 1
+            }]
+        }
 
 
 
