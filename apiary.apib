@@ -220,6 +220,26 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 
 
 
+# GET /deep{/from,to,?departure,?return,?lang,?currency,?price,?affilid,?passengers,?flightsId}
+
+Skypicker uses its own URL address format and it is specific for every language and can be used in many ways.
+
+If you dont want to deal with the creation of those addresses, use this API call, which will take the given parameters and make redirect to the correct URL
+
+In most cases, you dont need to use this call, as the deeplink is already returned in the flights call, when the partner parameter is specified
+
++ Parameters
+    + from (required, string) ... flyfrom, airport code
+    + to (required, string) ... the destination, accepts airport codes only
+    + departure (optional, string) ... the departure date
+    + return (optional, string) ... return date
+    + lang (optional, string) ... language (based on that cheap-flights, vuelos-baratoos, levne-lety will appear in the url address)
+    + currency (optional, string) ... currency
+    + price (optional, string) ... price, specify in the given currency
+    + affilid (optional, string) ... your affiliate id
+    + passengers (optional, integer) ... number of passengers
+    + flightsId (optional, string) ... the flight/trip id returned from the flights call
+
 # GET /check_flights{/pnum,?bnum,?flights}
 
 Checks the prices of given flights in realtime. Returns all the data about flights
@@ -390,7 +410,7 @@ The response is same as for check_flights, only has booking_id added
 
 
 + Response 200
-    {
+{
     "flights_price": 190.98,
     "fee_airline": 0.0, 
     "flights_invalid": false,
@@ -440,11 +460,11 @@ The response is same as for check_flights, only has booking_id added
             "Name": "easyJet"},
         "disabled": null}
         ],
-        "bags_fee": 0.0,
-        "server_time": 1395678524.0,
-        "book_fee": 25.14,
-        "total": 240.13,
-        "booking_id": 1212}
+    "bags_fee": 0.0,
+    "server_time": 1395678524.0,
+    "book_fee": 25.14,
+    "total": 240.13,
+    "booking_id": 1212}
 }
 
 # POST /paymill_payment{/booking_id,?token,?sandbox}
@@ -471,3 +491,14 @@ Makes a zooz transaction ( the implementation is done on frontend)
 
 + Response 200
     {"status":"closed"}
+
+
+# POST /watchdog{/name,email,max_price}
+
+API call used for storing watchdog events in the database. Can be called with exactly the same parameters as the flights call.
+
+Stealth mode
+
++ Response 200
+    {"status":"OK"}
+
