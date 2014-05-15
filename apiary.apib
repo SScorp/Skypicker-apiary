@@ -82,6 +82,7 @@ The google flights like filters are not well documented and even not tested for 
     + directFlights = `0` (optional, boolean) ... search only for direct flights
 
     + partner = `picky` (optional, string) ... partner ID. If present, in the result will be also a link to a specific trip directly to skypicker.com, with the affiliate id included (use picky partner ID for testing)
+    + v = `2` (optional, integer) ... api version, defaults to 1, in case of 2 the response format contains additional information (country codes and names, for now used only on skypicker.com frontend)
     
     + locale = `en` (optional, string) ... the language of city names in the response
         (more translations to be added)
