@@ -68,9 +68,9 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 
     + flyFrom (required, string,`CZ`) ... Skypicker api id of the departure destination
     + to (required, string, `porto`) ... Skypicker api id of the arrival destination
-    + dateFrom (required, string,`08/02/2014`) ... search flights from this date (dd/mm/YYYY). This and dateTo is a daterange for the flight departure 
-        (dateFrom 01/05/2014 and dateTo 30/05/2014 means, that the departure can be anytime between those dates).
-        For the dates of the return flights, use the returnTo&returnFrom or daysInDestinationFrom&daysInDestinationTo parameters
+    + dateFrom (required, string,`08/02/2014`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a daterange for the flight departure.**
+        Parameter dateFrom 01/05/2014 and dateTo 30/05/2014 means, that the departure can be anytime between those dates).
+        For the dates of the return flights, use the returnTo&returnFrom or daysInDestinationFrom & daysInDestinationTo parameters
     + dateTo (required, string,`08/03/2014`) ... search flights until this date (dd/mm/YYYY)
 
     + longitudeFrom = `14.0000` (optional, float) ... longitude of the pinpoint for geo based search, for the departure destination
