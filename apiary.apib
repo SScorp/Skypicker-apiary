@@ -11,6 +11,13 @@ To implement the basic search, you need only the /places and /flights API calls.
 The places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the flyFrom and to parameters. Basically, the IDs are the IATA airport and ISO country codes, 
 but Skypicker uses also its own IDs as the engine can do very specific searches (currently anywhere and there could be other geo areas specified - "To the sea", "To party places" etc)
 
+# Partner implementation notes
+
+Use the parameter partner=picky for testing your implementation. Before going live, your account manager will assign your custom partner ID to you.
+
+There is no development API, as most of the queries are simple GET requests that are not changing the state of any resource (except save_booking).
+Feel free to use api.skypicker.com for the implementation and also testing.
+
 
 #### Places
 The basic places call is this
