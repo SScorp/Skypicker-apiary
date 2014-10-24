@@ -109,7 +109,11 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     
     + oneforcity = `0` (optional, boolean) ... filters out the cheapest flights to every city covered by the **to** parameter
     
-    + passengers = `1` (optional, integer) ... number of passengers
+    + passengers = `1` (optional, integer) ... number of passengers. Default for defining the num of passengers.
+    
+    + adults = `0` (optional, integer) ... To specify number of childs, and infants, you can use adults&children&infants parameters. You have to specify all of those 3 parameters, otherwise the parameter passengers will be used
+    + children = `0` (optional, integer) ... number of childs
+    + infants = `0` (optional, integer) ... number of infants
     
     + flyDays  = `[0,1,2,3,4,5,6]` (optional, list) ... the list of days for the departure (0-Sunday)
         (url encoded format for all days flyDays%5B%5D=0&flyDays%5B%5D=1&flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&flyDays%5B%5D=5&flyDays%5B%5D=6)
