@@ -404,7 +404,7 @@ flight_checked value is only for remembered, but not yet acted upon
 
 Saves the user data from the booking form and returns a booking id
 
-The POST should contain the defined parameters in the following json
+The POST should contain the defined parameters in the described json payload
 The response is same as for check_flights, only with new parameters added
 
 ```
@@ -457,9 +457,10 @@ The response is same as for check_flights, only with new parameters added
 + Parameters
     + lang (required, string) ... the booking language
     + bags (required, string) ... the number of bags
-    + price (required, integer) ... the booking price, which was accepted by user
+    + price (required, integer) ... the booking price, which was accepted by user. Has to be converted to EUR using the SP rates
     + flights (required, string) ... the list of flights IDs, separated by commas
-    + passengers (required, integer) ... number of passengers
+    + passengers (required, array) ... array with details of the passengers
+    + customerLoginID (optional, string) ... used for custom payments
 
 
 + Response 200
