@@ -406,23 +406,40 @@ The POST should contain the defined parameters in the following json
 The response is same as for check_flights, only has booking_id added
 
 ```
-{"lang":"en",
- "bags":1,
- "passengers":[
-    {"surname":"Doe",
-     "name":"John",
-     "title":"mr",
-     "cardno":"246543",
-     "checkin":"passport",
-     "birthday":1141430400,
-     "expiration":1525132800,
-     "nationality":"Czech Republic",
-     "issuer":"Czech Republic",
-     "email":"martin@skypicker.com",
-     "phone":"123456786"}
- ],
- "price":66.33,
- "flights":["6111482"]}
+{  
+               "lang":"en",
+               "bags":0,                                            
+               "passengers":[  
+                  {  
+                     "surname":"test",
+                     "cardno":None,
+                     "checkin":"REMOVED, DEPRECATED",
+                     "phone":"+44 564564568456",
+                     "birthday":724118400,
+                     "nationality":"United Kingdom",
+                     "issuer":"REMOVED, DEPRECATED",
+                     "name":"test",
+                     "title":"mr",
+                     "expiration":None,
+                     "email":"lubos@skypicker.com"
+                  }
+               ],
+               "locale":"en",
+               "price":18.89,                                           # has to be always in EUR using the SP rates.
+               "customerLoginID":"unknown",
+               "currency":"czk",
+               "flights":[  
+                  "215135987"
+               ],
+               "customerLoginName":"unknown",
+               "orig_price":18.89,
+               "affily":"affil_id",
+               "booked_at":"affil_id",
+               "orig_pnum":1,
+               "eur_transaction":False,
+               "orig_currency":"czk",
+               "visitor_uniqid":"7f24f70cb2b8d635ba1198887b4c2875"
+            }
 ```
 
 
