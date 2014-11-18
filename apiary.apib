@@ -322,7 +322,7 @@ flight_checked value is only for remembered, but not yet acted upon
 
 
 
-{'bags_fee': 25.0,                                                             // price for the selected ags 
+{'bags_fee': 25.0,                                                             // price for the selected bags 
  'bags_price': {'1': 25.0, '2': 50.0},                                       // price for 1st and 2nd bag
  'book_fee': 0.0,                                                              // carriers fees
  'currency': 'EUR',                                                           
@@ -405,7 +405,16 @@ flight_checked value is only for remembered, but not yet acted upon
 Saves the user data from the booking form and returns a booking id
 
 The POST should contain the defined parameters in the following json
-The response is same as for check_flights, only has booking_id added
+The response is same as for check_flights, only with new parameters added
+
+```
+{ 'transaction_id': False,
+'zooz_token': '4XWBRXPFUD4YSXXPGBKEUNSKR4',                                   // use this token to send credit card data to Zooz
+'booking_id': 47808,                                                           // the unique booking identified (this ID will be also passed in the callbacks to identify the booking)
+'sandbox': True,                                                               // indicates if the payment is processed in a sandbox mode. Can be also triggered by using Test Test as a passenger name
+'status': 'success'
+}
+```
 
 ```
 {  
@@ -454,62 +463,81 @@ The response is same as for check_flights, only has booking_id added
 
 
 + Response 200
-{
-    "flights_price": 190.98,
-    "fee_airline": 0.0, 
-    "flights_invalid": false,
-    "luggage": [56, 45, 25, 15, 20], 
-    "flights_checked": false,
-    "sp_fee": 24.01,
-    "one_passenger": 240.13,
-    "flights": [
-        {"dtime_unix": 1398519900,
-        "atime_unix": 1398525300,
-        "airnum": 3,
-        "dtime": 1398519900.0,
-        "currency": "EUR",
-        "id": 8996576,
-        "atime_utc": 1398518100.0, 
-        "scraping_start": 1395318317.0,
-        "dst": "MXP",
-        "invalid": null,
-        "checkin": 1395927900.0,
-        "fromid": 1382,
-        "dtime_utc": 1398512700.0,
-        "eur": 190.98,
-        "check_ended": null,
-        "timestamp": 1395539714.0,
-        "price": 190.98,
-        "flydate": null,
-        "src_name": "Paris",
-        "atime": 1398525300.0,
-        "src": "CDG",
-        "atime_waiting": null,
-        "dst_name": "Milan",
-        "flyuniquekey": "src:CDG_dst:MXP_dtime:2014-04-26 13:45:00_ar:U2",
-        "toid": 1524,
-        "time_between": null,
-        "airline":
-            {"hand_length": 56,
-            "name": "easyJet", 
-            "url": "http://www.easyjet.com",
-            "checkin": 30,
-            "iata": "U2",
-            "iatacode": "U2",
-            "hand_weight": 15,
-            "hold_weight": 20,
-            "hand_height": 25,
-            "hand_width": 45,
-            "id": 3,
-            "Name": "easyJet"},
-        "disabled": null}
-        ],
-    "bags_fee": 0.0,
-    "server_time": 1395678524.0,
-    "book_fee": 25.14,
-    "total": 240.13,
-    "booking_id": 1212}
-}
+{'bags_fee': 0.0,
+ 'bags_price': {'1': 25.0, '2': 50.0},
+ 'book_fee': 0.0,
+ 'booking_id': 47808,
+ 'document_options': {'airport_checkin_price': 70,
+                       'checkin_date': 1418332800,
+                       'document_need': 1},
+ 'eur_payment_price': 18.51,
+ 'extra_fee': 0,
+ 'fee_airline': 0.0,
+ 'flight_real_price': 17.0,
+ 'flights': [{'airline': {'Name': 'Ryanair',
+                            'active': 1,
+                            'affil_url': 'http://www.ryanair.com/',
+                            'airport_checkin': 70,
+                            'booking_doc_needed': 1,
+                            'checkin': 7,
+                            'close_booking_hours': 6,
+                            'hand_height': 20,
+                            'hand_length': 55,
+                            'hand_weight': 10,
+                            'hand_width': 40,
+                            'hold_weight': 15,
+                            'iata': 'FR',
+                            'iatacode': 'FR',
+                            'id': 11,
+                            'lcc': 1,
+                            'name': 'Ryanair',
+                            'non_active_reason': None,
+                            'passengers_in_search': 1,
+                            'url': 'http://www.ryanair.com'},
+               'atime': 1418596500.0,
+               'atime_unix': 1418596500,
+               'atime_unix_utc': 1418596500,
+               'atime_utc': 1418596500.0,
+               'checkin': 1417987200.0,
+               'currency': 'CZK',
+               'disabled': None,
+               'dst': 'STN',
+               'dst_id': 813,
+               'dst_name': 'London',
+               'dtime': 1418592000.0,
+               'dtime_unix': 1418592000,
+               'dtime_unix_utc': 1418588400,
+               'dtime_utc': 1418588400.0,
+               'eur': 17.0,
+               'extra': '',
+               'flight_no': 8404,
+               'id': 215135987,
+               'invalid': None,
+               'passengers': '1',
+               'passengers_flight_check': {'1': {'eur': 17,
+                                                   'invalid': None,
+                                                   'scraping_start': 1416230073.0,
+                                                   'timestamp': 1416230102.0}},
+               'price': 825,
+               'return': 0,
+               'scraping_start': 1416230073.0,
+               'src': 'BRQ',
+               'src_id': 7983,
+               'src_name': 'Brno',
+               'timestamp': 1416230102.0}],
+ 'flights_checked': True,
+ 'flights_invalid': False,
+ 'flights_price': 17.0,
+ 'luggage': [55, 40, 20, 10, 15],
+ 'one_passenger': 18.89,
+ 'route': ['BRQ', 'STN'],
+ 'sandbox': True,
+ 'server_time': 1416230124.0,
+ 'sp_fee': 1.89,
+ 'status': 'success',
+ 'total': 18.89,
+ 'transaction_id': False,
+ 'zooz_token': 'xxxxxx'}
 
 # POST /paymill_payment{/booking_id,?token,?sandbox}
 
