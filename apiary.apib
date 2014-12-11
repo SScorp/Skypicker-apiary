@@ -314,9 +314,12 @@ flight_checked value is only for remembered, but not yet acted upon
 
 
 + Parameters
-    + pnum = `1` (optional, integer) ... number of passengers
-    + bnum = `0` (optional, integer) ... number of bags
+    + pnum = `1` (required, integer) ... number of passengers
+    + bnum = `0` (required, integer) ... number of bags
     + flights (required, string) ... list of Skypicker flight IDs, separated by comma
+    + affily (optional, string) ... the affil ID
+    + booked_at (optional, string) ... the ID of the site, where the booking was made. In most of cases, same as affily. The difference is, that affily can contain also any subIDs, while booked_at is only the basic partner ID
+    + orig_price (required, decimal) ... original price shown to the user in search results. This has to be converted to EUR using the SP rates which can be found at https://api.skypicker.com/rates/<currency> 
 
 + Response 200
 
