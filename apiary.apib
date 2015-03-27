@@ -161,6 +161,8 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + returnatimeto = `00:00` (optional, string)  ... result filter, min arrival time of the returning flight
     + stopoverfrom = `00:00` (optional, string)  ... result filter, min length of stopover, 48:00 means 2 days here (48 hours)
     + stopoverto = `00:00` (optional, string)  ... result filter, max length of stopover, 48:00 means 2 days here (48 hours)
+
+    + booking_token = `hashed data` (optional, string)  ... a hash containing the encrypted flight data. This hash should be passed to check flights and save booking API calls in the booking v2 API
     
 + Response 200 (application/json)
 
