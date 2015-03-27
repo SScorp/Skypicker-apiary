@@ -9,6 +9,8 @@ Currently, SLLv3 is disabled. Use TLS 1, 1.1 or 1.2 in your client config, if yo
 
 To implement the basic search, you need only the /places and /flights API calls.
 
+To implement also the booking API, you need to use the booking_token hash containing all the needed flights data and pass it as parameters to check flights and also to save booking calls.
+
 The places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the flyFrom and to parameters. Basically, the IDs are the IATA airport and ISO country codes, 
 but Skypicker uses also its own IDs as the engine can do very specific searches (currently anywhere and there could be other geo areas specified - "To the sea", "To party places" etc)
 
