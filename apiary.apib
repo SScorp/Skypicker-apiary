@@ -255,7 +255,7 @@ To do a request, send a POST json payload with a list of API parameters for each
 
 A sample python code for this call could look like the following
 
-
+```
 import requests
 
 query_list = [
@@ -264,7 +264,7 @@ query_list = [
 ]
 
 print requests.post('https://api.skypicker.com/flights_multi', data = json.dumps({'requests': r}) ).json()
-
+```
 
 In the response root, the results field contains  a list of responses for the posted queries.
 
