@@ -245,6 +245,34 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 }
 
 
+# POST /flights_multi{/requests}
+
+This call is able to do multi-city searches in parallel. The single search queries dont have to be connected in any way.
+
+Accepts the same parameters as the /flights API call.
+
+To do a request, send a POST json payload with a list of API parameters for each search query.
+
+A sample python code for this call could look like the following
+
+
+import requests
+
+query_list = [
+    {'to': 'MAD', 'flyFrom': 'BRQ', 'directFlights': 1, 'dateFrom': '29/05/2015', 'dateTo': '29/05/2015'},
+    {'to': 'PRG', 'flyFrom': 'MAD', 'directFlights': 1, 'dateFrom': '30/05/2015', 'dateTo': '30/05/2015'}
+]
+
+print requests.post('https://api.skypicker.com/flights_multi', data = json.dumps({'requests': r}) ).json()
+
+
+In the response root, the results field contains  a list of responses for the posted queries.
+
+The total_price is the sum of all the prices.
+
+The main_booking_token in the response root should be used for booking the flights, instead the booking_token in each single search query result.
+
+
 
 # GET /deep{/from,to,?departure,?return,?lang,?currency,?price,?affilid,?passengers,?flightsId}
 
