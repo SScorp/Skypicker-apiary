@@ -266,7 +266,7 @@ query_list = [
 print requests.post('https://api.skypicker.com/flights_multi', data = json.dumps({'requests': r}) ).json()
 ```
 
-In the response root, the results field contains  a list of responses for the posted queries.
+In the response root, the results field contains a list of responses for the posted queries. Each single element contains the same response as it would be a /flights API call.
 
 The total_price is the sum of all the prices.
 
