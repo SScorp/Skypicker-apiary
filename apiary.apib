@@ -23,6 +23,29 @@ Feel free to use api.skypicker.com for the implementation and also testing.
 
 Currently, all of our flights are economy class. We consider for now each passenger as an adult.
 
+# How it works
+For every search the rules are the same. Except deeplink! How **deeplink** works - scroll down.
+
+1. Always **start with** https://api.skypicker.com/
+
+2. Choose **one specific call** from list below (places, flights, flights_multi, check_flights, save_booking, paymill_payment, zooz_payment, watchdog), 
+e.g. https://api.skypicker.com/places
+
+3. For **specific searches** and filters use " **?** " after chosen call, e.g. /places?
+Then **choose parameters** from specific call list, where every available parameter is described. 
+Choose one of them and use it in exact form with " **=** ". Then **set a value** of the parameter,  e.g. https://api.skypicker.com/places?term=br
+So term is used for suggestions of geo names and "br" returns city, airport codes or country names beginning with br.
+
+You may want to **combine** more parameters, then always put " **&** " to separate them, e.g. https://api.skypicker.com/places?term=br&locale=cs
+Now we have all geo names beginning with br in Czech language.
+
+Some of the parameters are **mandatory** for use in specific calls. Check it in **Details** column of every parameter, 
+e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are required https://api.skypicker.com/flights?flyFrom=PRG&to=OPO&dateFrom=01/06/2015&dateTo=30/06/2015 
+We get all flights from Prague to Porto, from Jun 6, 2015 until Jun 30, 2015
+
+Correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
+
+
 #### Places
 The basic places call is this
 
@@ -281,6 +304,14 @@ Skypicker uses its own URL address format and it is specific for every language 
 If you dont want to deal with the creation of those addresses, use this API call, which will take the given parameters and make redirect to the correct URL
 
 In most cases, you dont need to use this call, as the deeplink is already returned in the flights call, when the partner parameter is specified
+
+**Start with** https://skypicker.com/deep? choose parameters from this list below. Add " **=** " and **set a value** of the parameter. For this call it is **mandatory** to use parameters **from** and **to**. Always put " **&** " to separate parameters. To search specific dates, use format **dd-mm-YYYY** , for interval dates **dd-mm-YYYY-dd-mm-YYYY**
+
+e.g. 
+https://skypicker.com/deep?from=PRG&to=OPO&departure=03-06-2015-18-06-2015&return=08-07-2015-13-07-2015 
+We get all flights from Prague to Porto, from Jun 3, 2015 until Jun 18, 2015 and return flights from Porto to Prague, from Jul 8, 2015 until Jul 13, 2015.
+
+
 
 + Parameters
     + from (required, string) ... flyfrom, airport code
