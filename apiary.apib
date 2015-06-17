@@ -280,16 +280,20 @@ A sample python code for this call could look like the following
 
 ```
 import requests
+import json
 
-query_list = [
-    {'to': 'MAD', 'flyFrom': 'BRQ', 'directFlights': 1, 'dateFrom': '29/05/2015', 'dateTo': '29/05/2015'},
-    {'to': 'PRG', 'flyFrom': 'MAD', 'directFlights': 1, 'dateFrom': '30/05/2015', 'dateTo': '30/05/2015'}
+r = [
+    {'to': 'PRG', 'flyFrom': 'AMS', 'directFlights': 0, 'dateFrom': '11/06/2015', 'dateTo': '28/06/2015'},
+    {'to': 'AMS', 'flyFrom': 'OSL', 'directFlights': 0, 'dateFrom': '01/07/2015', 'dateTo': '11/07/2015'}
 ]
 
-print requests.post('https://api.skypicker.com/flights_multi', data = json.dumps({'requests': r}) ).json()
+print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps({'requests': r}) ).json()
 ```
 
 In the response root, the results field contains a list of responses for the posted queries. Each single element contains the same response as it would be a /flights API call.
+
+Each result has its own deeplink which can be used to forward the user to Skypicker booking e.g. 
+https://www.skypicker.com/deep?type=A&from=AMS&to=PRG&departure=28-06-2015&flightsId=225682230|CG143389386_749965|CG143389386_688740&affilid=momondo&price=216.27&passengers=1&lang=en&booking_token=bcEuJfu3fWne+z+50B2d1FLlFWEq6njGjUEUpGFn1DvjlNr7ieM4H5cvU6x9XSmsFreagffBYLU0Y2LDjQJ9nQPZ63fFHN/EmTH6Q8lBkDa5B1fGRHqrEt5MuVIK7mIVkCSOKz6GnbirA63hUN7M+NpVSeXH0AOPxSN7kg9TtOymlS1ZQ7QAPWNkjZV2LOsx24/Sw9SvQD+6JRKSB7i6DWpwRHuKEmksPFi6+I4B6mw2bmG+ewuwF6zQVPx9wOxH
 
 The total_price is the sum of all the prices.
 
