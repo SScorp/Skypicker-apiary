@@ -268,8 +268,12 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 }
 
 
-# POST /flights_multi{/requests}
+# POST /flights_multi{partner,locale,curr}
 
+    + partner (required, string,``) ... your partner ID
+    + locale (optional, string,``) ... localization, if you are using it for flights
+    + curr (optional, string,``) ... currency, if you are using it for flights
+    
 This call is able to do multi-city searches in parallel. The single search queries dont have to be connected in any way.
 
 Accepts the same parameters as the /flights API call.
