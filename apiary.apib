@@ -271,7 +271,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 # POST /flights_multi{partner,locale,curr}
 
     + partner (required, string,``) ... your partner ID
-    + locale (optional, string,``) ... localization, if you are using it for flights
+    + locale (optional, string,`en`) ... localization, if you are using it for flights
     + curr (optional, string,``) ... currency, if you are using it for flights
     
 This call is able to do multi-city searches in parallel. The single search queries dont have to be connected in any way.
@@ -286,10 +286,10 @@ A sample python code for this call could look like the following (this is an exa
 import requests
 import json
 
-r = [
+r = {'requests': [
     {'to': 'PRG', 'flyFrom': 'AMS', 'directFlights': 0, 'dateFrom': '11/06/2015', 'dateTo': '28/06/2015'},
     {'to': 'AMS', 'flyFrom': 'OSL', 'directFlights': 0, 'dateFrom': '01/07/2015', 'dateTo': '11/07/2015'}
-]
+]}
 
 print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps({'requests': r}) ).json()
 ```
