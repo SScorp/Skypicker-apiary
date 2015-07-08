@@ -286,15 +286,17 @@ A sample python code for this call could look like the following (this is an exa
 import requests
 import json
 
-r = {'requests': [
-         {'to': 'PRG', 'flyFrom': 'AMS', 'directFlights': 0, 'dateFrom': '11/06/2015', 'dateTo': '28/06/2015'},
-         {'to': 'AMS', 'flyFrom': 'OSL', 'directFlights': 0, 'dateFrom': '01/07/2015', 'dateTo': '11/07/2015'}
+r = {"requests": [
+         {"to": "PRG", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "11/06/2015", "dateTo": "28/06/2015"},
+         {"to": "AMS", "flyFrom": "OSL", "directFlights": 0, "dateFrom": "01/07/2015", "dateTo": "11/07/2015"}
 ]}
 
 print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
 ```
 
 In the response root, the results field contains a list of responses for the posted queries. Each single element contains the same response as it would be a /flights API call.
+
+Please keep in mind, that valid json quotes are only ", not '
 
 Each result has its own deeplink which can be used to forward the user to Skypicker booking e.g. 
 https://www.skypicker.com/deep?type=A&from=AMS&to=PRG&departure=28-06-2015&flightsId=225682230|227956401|226372190|226369315&affilid=picky&price=213.45&passengers=1&lang=en&booking_token=bcEuJfu3fWne+z+50B2d1FLlFWEq6njGjUEUpGFn1DvjlNr7ieM4H5cvU6x9XSmsOF3qfuD9WujYk8+45h72pV0Y0iQ3RYCY23jpAseZEWtKHdWd3k+oTdyMzC410kw0ZwqofGdUQ1LdbTvLvumLo7sFHpvlEh9mpmjKePCCBwGm5sI4cBE3Ys+/oLYuE3NXyGTJ2d1rHJpEdO8JnsEvPuFKpacVWlHBcbeh5wlmitEFW/6WGTL+dKmKl5rp1pEz
