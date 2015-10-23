@@ -192,79 +192,157 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 + Response 200 (application/json)
 
 {
-    "connections": [
-    ],
-    "data": [
+  "search_params": {
+    "to_type": "airport",
+    "flyFrom_type": "airport"
+  },
+  "time": 1,
+  "connections": [],
+  "currency": "pln",
+  "currency_rate": 0.2353,
+  
+
+  "data": [
+    {
+      "mapIdfrom": "edinburgh",
+      "return_duration": "10h 55m",
+      "flyTo": "WMI",
+      "conversion": {
+        "PLN": 1154,
+        "EUR": 271
+      },
+      "deep_link": "https://www.skypicker.com/deep?type=abc-m14.5&from=EDI&to=WMI&departure=19-12-2015&return=23-12-2015&flightsId=240466858|236557749|245258276|234220297&affilid=skyscanner_pl&price=271.5362&passengers=1&lang=pl&currency=pln&booking_token=NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
+      "mapIdto": "warsaw",
+      "nightsInDest": 3,
+      "id": "240466858|236557749|245258276|234220297",
+      "fly_duration": "24h 10m",
+      "countryTo": {
+        "code": "PL",
+        "name": "Rzeczpospolita Polska"
+      },
+      "baglimit": {
+        "hand_width": 40,
+        "hand_length": 55,
+        "hold_weight": 15,
+        "hand_height": 20,
+        "hand_weight": 10
+      },
+      "aTimeUTC": 1450643100,
+      "distance": 1624.4,
+      "price": 1154,
+      "type_flights": [
+        "lcc"
+      ],
+      "bags_price": {
+        "1": 100.0,
+        "2": 200.0
+      },
+      "cityTo": "Warszawa",
+      "flyFrom": "EDI",
+      "dTimeUTC": 1450556100,
+      "p2": 232,
+      "countryFrom": {
+        "code": "GB",
+        "name": "Zjednoczone Królestwo Wielkiej Brytanii"
+      },
+      "p1": 232,
+      "dTime": 1450556100,
+      "booking_token": "NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
+      "cityFrom": "Edynburg",
+      "aTime": 1450646700,
+      
+      "route": [
         {
-        "aTimeUTC": 1413466500,
-        "distance": 2159.06,
-        "price": 73.33,
-        "cityTo": "Porto",
-        "flyFrom": "BRQ",
-        "flyTo": "OPO",
-        "dTimeUTC": 1413404100,
-        "countryFrom": {
-            "code": "CZ",
-            "name": "Czech Republic"
+          "aTimeUTC": 1450560300,
+          "mapIdfrom": "edinburgh",
+          "mapIdto": "dublin",
+          "flight_no": 819,
+          "dTime": 1450556100,
+          "latTo": 53.3331,
+          "flyTo": "DUB",
+          "return": 0,
+          "source": null,
+          "id": "240466858",
+          "airline": "FR",
+          "lngTo": -6.24889,
+          "cityTo": "Dublin",
+          "cityFrom": "Edynburg",
+          "lngFrom": -3.1936633587,
+          "aTime": 1450560300,
+          "flyFrom": "EDI",
+          "price": 21.0,
+          "latFrom": 55.9485946759,
+          "dTimeUTC": 1450556100
         },
-        "deep_link": "https:\/\/www.skypicker.com\/deep?from=BRQ&to=OPO&departure=15-10-2014&flightsId=209149102|209305413&affilid=picky&price=73.33&passengers=1&lang=en",
-        "nightsInDest": null,
-        "dTime": 1413411300,
-        "id": "209149102|209305413",
-        "fly_duration": "17h 20m",
-        "cityFrom": "Brno",
-        "aTime": 1413470100,
-        "countryTo": {
-            "code": "PT",
-            "name": "Portugal"
+        {
+          "aTimeUTC": 1450643100,
+          "mapIdfrom": "dublin",
+          "mapIdto": "warsaw",
+          "flight_no": 4543,
+          "dTime": 1450633200,
+          "latTo": 52.2298,
+          "flyTo": "WMI",
+          "return": 0,
+          "source": null,
+          "id": "236557749",
+          "airline": "FR",
+          "lngTo": 21.0118,
+          "cityTo": "Warszawa",
+          "cityFrom": "Dublin",
+          "lngFrom": -6.24889,
+          "aTime": 1450646700,
+          "flyFrom": "DUB",
+          "price": 133.0,
+          "latFrom": 53.3331,
+          "dTimeUTC": 1450633200
         },
-        "route": [
-            {
-            "aTimeUTC": 1413411900,
-            "mapIdfrom": "brno",
-            "mapIdto": "london",
-            "flight_no": 8404,
-            "dTime": 1413411300,
-            "latTo": 51.5135984673,
-            "flyTo": "STN",
-            "return": 0,
-            "id": "209149102",
-            "airline": "FR",
-            "lngTo": -0.1164722443,
-            "cityTo": "London",
-            "cityFrom": "Brno",
-            "lngFrom": 16.608,
-            "aTime": 1413415500,
-            "flyFrom": "BRQ",
-            "price": 19,
-            "latFrom": 49.1952,
-            "dTimeUTC": 1413404100
-            },
-            {
-            "aTimeUTC": 1413466500,
-            "mapIdfrom": "london",
-            "mapIdto": "porto",
-            "flight_no": 8345,
-            "dTime": 1413461700,
-            "latTo": 41.148959897,
-            "flyTo": "OPO",
-            "return": 0,
-            "id": "209305413",
-            "airline": "FR",
-            "lngTo": -8.6125516891,
-            "cityTo": "Porto",
-            "cityFrom": "London",
-            "lngFrom": -0.1164722443,
-            "aTime": 1413470100,
-            "flyFrom": "STN",
-            "price": 42,
-            "latFrom": 51.5135984673,
-            "dTimeUTC": 1413458100
-            }
-        ]
+        {
+          "aTimeUTC": 1450914900,
+          "mapIdfrom": "warsaw",
+          "mapIdto": "dublin",
+          "flight_no": 4544,
+          "dTime": 1450907400,
+          "latTo": 53.3331,
+          "flyTo": "DUB",
+          "return": 1,
+          "source": null,
+          "id": "245258276",
+          "airline": "FR",
+          "lngTo": -6.24889,
+          "cityTo": "Dublin",
+          "cityFrom": "Warszawa",
+          "lngFrom": 21.0118,
+          "aTime": 1450914900,
+          "flyFrom": "WMI",
+          "price": 63.0,
+          "latFrom": 52.2298,
+          "dTimeUTC": 1450903800
+        },
+        {
+          "aTimeUTC": 1450943100,
+          "mapIdfrom": "dublin",
+          "mapIdto": "edinburgh",
+          "flight_no": 812,
+          "dTime": 1450938600,
+          "latTo": 55.9485946759,
+          "flyTo": "EDI",
+          "return": 1,
+          "source": null,
+          "id": "234220297",
+          "airline": "FR",
+          "lngTo": -3.1936633587,
+          "cityTo": "Edynburg",
+          "cityFrom": "Dublin",
+          "lngFrom": -6.24889,
+          "aTime": 1450943100,
+          "flyFrom": "DUB",
+          "price": 15.0,
+          "latFrom": 53.3331,
+          "dTimeUTC": 1450938600
         }
-    ],
-    "time": 1
+      ]
+    },
+ ]
 }
 
 
