@@ -92,7 +92,7 @@ From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), 
     }
 
 
-# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner}
+# GET /flights{flyFrom,to,datefrom,dateto,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner,?limit,?offset}
 
 A single flights search.
 
@@ -189,6 +189,10 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 
     + booking_token = `hashed data` (optional, string)  ... a hash containing the encrypted flight data. This hash should be passed to check flights and save booking API calls in the booking v2 API
     
+    + offset = (optional, integer, `0`) ... enable pagination and set offset
+    + limit = (optional, integer, `30`) ... limit number of results per request (pagination must be enabled by using offset param)
+    
+    
 + Response 200 (application/json)
 
 {
@@ -253,6 +257,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
       
       "route": [
         {
+          "bags_recheck_required": false,
           "aTimeUTC": 1450560300,
           "mapIdfrom": "edinburgh",
           "mapIdto": "dublin",
@@ -275,6 +280,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
           "dTimeUTC": 1450556100
         },
         {
+          "bags_recheck_required": true,
           "aTimeUTC": 1450643100,
           "mapIdfrom": "dublin",
           "mapIdto": "warsaw",
@@ -297,6 +303,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
           "dTimeUTC": 1450633200
         },
         {
+          "bags_recheck_required": true,
           "aTimeUTC": 1450914900,
           "mapIdfrom": "warsaw",
           "mapIdto": "dublin",
@@ -319,6 +326,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
           "dTimeUTC": 1450903800
         },
         {
+          "bags_recheck_required": true,
           "aTimeUTC": 1450943100,
           "mapIdfrom": "dublin",
           "mapIdto": "edinburgh",
