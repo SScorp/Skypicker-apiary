@@ -737,3 +737,38 @@ Stealth mode
     
         {"status":"OK"}
 
+
+# GET /users/self/bookings/{bid}
+
+Get information about booking
+
+# POST /users/self/bookings/{bid}
+
+```
+action: "createContact"
+data: [{
+  value: "joe@doe.com"
+  comment: ""
+  category: "email/phone/other/holub"
+}]
+```
+
+```
+action: "removeContact"
+data: [{
+  id: 123
+}]
+```
+
+Will appear in
+```
+additional_contacts: [{
+  id: 123
+  value: "joe@doe.com"
+  comment: "Contact in emergency"
+  category: "email/phone/twitter/facebook/pigeon/other"
+}]
+```
+
+
+
