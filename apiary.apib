@@ -569,18 +569,20 @@ The main_booking_token in the response root should be used for booking the fligh
     + curr : `GBP` (optional, string) - currency, if you are using it for flights
     
 
-```
-import requests
-import json
-
-r = {"requests": [
-         {"to": "PRG", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "11/06/2015", "dateTo": "28/06/2015"},
-         {"to": "AMS", "flyFrom": "OSL", "directFlights": 0, "dateFrom": "01/07/2015", "dateTo": "11/07/2015"}
-]}
-
-print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
-```
-
++ Request (application/json)
+    {
+        import requests
+        import json
+        
+        r = {"requests": [
+                {"to": "PRG", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "11/06/2016", "dateTo": "28/06/2016"},
+                {"to": "AMS", "flyFrom": "OSL", "directFlights": 0, "dateFrom": "01/07/2016", "dateTo": "11/07/2016"}
+        ]}
+        
+        print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
+    }
+    
+    
 ## Group check_flights
 
 Please see our booking documentation http://docs.skypickerbookingapi1.apiary.io/#reference/check-flights
