@@ -13,6 +13,10 @@ requests, and
 [SSLv3 handshakes are not accepted](https://en.wikipedia.org/wiki/POODLE).
 Configure your client to use TLS 1.2 if you get a handshake error response.
 
+There is no staging API for GET requests, feel free to use api.skypicker.com for
+development. If you would like to make test bookings, please contact us at
+b2b@skypicker.com.
+
 To implement flight search functionality, you only need to use the /flights
 call. In this case the customer will be redirected to skypicker.com to book the
 flight if they select one of them
@@ -26,36 +30,14 @@ are accepted by the /flights call in the `flyFrom` and `to` parameters. This is
 optional though, since you can use IATA airport codes or ISO country codes as
 well.
 
-# Partner implementation notes
+## Limitations
 
-Use the parameter partner=picky for testing your implementation. Before going live, your account manager will assign your custom partner ID to you.
+Currently, our API has the following limitations:
 
-There is no development API, as most of the queries are simple GET requests that are not changing the state of any resource (except save_booking).
-Feel free to use api.skypicker.com for the implementation and also testing.
+ - We only return economy cabin class flight results.
+ - We consider all passengers to be adults.
 
-Currently, all of our flights are economy class. We consider for now each passenger as an adult.
-
-# How it works
-For every search the rules are the same. Except deeplink! How **deeplink** works - scroll down.
-
-1. Always **start with** https://api.skypicker.com/
-
-2. Choose **one specific call** from list below (places, flights, flights_multi, check_flights, save_booking, paymill_payment, zooz_payment, watchdog),
-e.g. https://api.skypicker.com/places
-
-3. For **specific searches** and filters use " **?** " after chosen call, e.g. /places?
-Then **choose parameters** from specific call list, where every available parameter is described.
-Choose one of them and use it in exact form with " **=** ". Then **set a value** of the parameter,  e.g. https://api.skypicker.com/places?term=br
-So term is used for suggestions of geo names and "br" returns city, airport codes or country names beginning with br.
-
-You may want to **combine** more parameters, then always put " **&** " to separate them, e.g. https://api.skypicker.com/places?term=br&locale=cs
-Now we have all geo names beginning with br in Czech language.
-
-Some of the parameters are **mandatory** for use in specific calls. Check it in **Details** column of every parameter,
-e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are required https://api.skypicker.com/flights?flyFrom=PRG&to=OPO&dateFrom=01/06/2015&dateTo=30/06/2015
-We get all flights from Prague to Porto, from Jun 6, 2015 until Jun 30, 2015
-
-Correct date format is **dd/mm/YYYY**, e.g. 29/05/2015.
+We're working on lifting these limitations as soon as we can.
 
 #### Places
 The basic places call is this
@@ -70,6 +52,8 @@ https://api.skypicker.com/flights?flyFrom=CZ&to=OPO&dateFrom=10/10/2014&dateTo=2
 If there is the partner parameter specified, the response will contain the link directly to Skypicker booking, where user can book the specified flight.
 
 For more specific searches and filters continue to this apiary specification, where every available parameter is described.
+
+Use the parameter partner=picky for testing your implementation. Before going live, your account manager will assign your custom partner ID to you.
 
 ## Group places
 
