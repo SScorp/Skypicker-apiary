@@ -2,17 +2,29 @@ FORMAT: 1A
 HOST: https://api.skypicker.com
 
 # Skypicker.com API
-Skypicker.com flights search API.
 
-The default api endpoint is api.skypicker.com . You have to use https, always.
-Currently, SLLv3 is disabled. Use TLS 1, 1.1 or 1.2 in your client config, if you get a handshake error response.
+The Skypicker API can be used to search and book flight content, including
+Skypicker's unique combinations.
 
-To implement the basic search, you need only the /places and /flights API calls.
+## Summary
 
-To implement also the booking API, you need to use the booking_token hash containing all the needed flights data and pass it as parameters to check flights and also to save booking calls.
+The API endpoint is api.skypicker.com. Use of HTTPS is required for all
+requests, and
+[SSLv3 handshakes are not accepted](https://en.wikipedia.org/wiki/POODLE).
+Configure your client to use TLS 1.2 if you get a handshake error response.
 
-The places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the flyFrom and to parameters. Basically, the IDs are the IATA airport and ISO country codes,
-but Skypicker uses also its own IDs as the engine can do very specific searches (currently anywhere and there could be other geo areas specified - "To the sea", "To party places" etc)
+To implement flight search functionality, you only need to use the /flights
+call. In this case the customer will be redirected to skypicker.com to book the
+flight if they select one of them
+
+If you want to be able to book on behalf of your users, keeping them on your own
+site or app during the whole process, you will also need to implement our
+booking API, with the /check_flights and /save_booking endpoints.
+
+The /places call allows you to get the list of Skypicker location API IDs, which
+are accepted by the /flights call in the `flyFrom` and `to` parameters. This is
+optional though, since you can use IATA airport codes or ISO country codes as
+well.
 
 # Partner implementation notes
 
