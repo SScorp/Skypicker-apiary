@@ -51,7 +51,7 @@ We're working on lifting these limitations as soon as we can.
     + term: br (optional, string) - The search term to get suggestions for. For instance, 'br' returns city, airport codes or country names beginning with 'Br', including Brussels, and Brazil.
     + locale: de (optional, string) - language of the names in the response
         + Default: `en`
-    + bounds: -10.0,-10.0,10.0,10.0 (optional, string) - filter returned places to those within these bounds, specified in the format `lat_lo,lon_lo,lat_hi,lon_hi`. 'lo' is the southwestern corner of the bounding box, and 'hi' is the northeastern one.
+    + bounds: 10.0,10.0,20.0,20.0 (optional, string) - filter returned places to those within these bounds, specified in the format `lat_lo,lon_lo,lat_hi,lon_hi`. 'lo' is the southwestern corner of the bounding box, and 'hi' is the northeastern one.
 
 + Response 200
 
@@ -77,7 +77,7 @@ We're working on lifting these limitations as soon as we can.
 + Parameters
 
     + id: BRQ (string)
-    + locale: de (optional, string) - language of the names in the response
+    + locale: (optional, string) - language of the names in the response
         + Default: `en`
     + v: 3 (optional, integer) - API version to use. The current version is 3, so set this to `v=3`
 
@@ -99,6 +99,7 @@ We're working on lifting these limitations as soon as we can.
               "type": 0,
               "id": "BRQ"
             }
+
 
 #### Search
 The basic flights call could look like this
