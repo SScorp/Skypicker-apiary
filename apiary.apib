@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: https://api.skypicker.com
 
-# Skypicker.com API
+# Skypicker API
 
 The Skypicker API can be used to search and book flight content, including
 Skypicker's unique combinations.
@@ -39,10 +39,66 @@ Currently, our API has the following limitations:
 
 We're working on lifting these limitations as soon as we can.
 
-#### Places
-The basic places call is this
+# Group Places
 
-https://api.skypicker.com/places
+## Places collection [/places{?term,?locale,?zoomLevelThreshold,?bounds,?v}]
+
+### Get Places [GET]
+
++ Parameters
+
+    + v: 3 (optional, integer) - API version to use. The current version is 3, so set this to `v=3`
+    + term: br (optional, string) - The search term to get suggestions for. For instance, 'br' returns city, airport codes or country names beginning with 'Br', including Brussels, and Brazil.
+    + locale: de (optional, string) - language of the names in the response
+        + Default: `en`
+    + bounds: -10.0,-10.0,10.0,10.0 (optional, string) - filter returned places to those within these bounds, specified in the format `lat_lo,lon_lo,lat_hi,lon_hi`. 'lo' is the southwestern corner of the bounding box, and 'hi' is the northeastern one.
+
++ Response 200
+
+    + Body
+
+            [
+              {
+                "zoomLevelThreshold": 7,
+                "numberOfAirports": 1,
+                "sp_score": null,
+                "value": "Brno",
+                "rank": 8,
+                "parentId": 1,
+                "lat": 49.1952,
+                "lng": 16.608,
+                "type": 0,
+                "id": "BRQ"
+              }
+            ]
+
+## Place [/places/{id}{?v,?locale}]
+
++ Parameters
+
+    + id: BRQ (string)
+    + locale: de (optional, string) - language of the names in the response
+        + Default: `en`
+    + v: 3 (optional, integer) - API version to use. The current version is 3, so set this to `v=3`
+
+### Retrieve a Place [GET]
+
++ Response 200
+
+    + Body
+
+            {
+              "zoomLevelThreshold": 7,
+              "numberOfAirports": 1,
+              "sp_score": null,
+              "value": "Brno",
+              "rank": 8,
+              "parentId": 1,
+              "lat": 49.1952,
+              "lng": 16.608,
+              "type": 0,
+              "id": "BRQ"
+            }
 
 #### Search
 The basic flights call could look like this
@@ -54,40 +110,6 @@ If there is the partner parameter specified, the response will contain the link 
 For more specific searches and filters continue to this apiary specification, where every available parameter is described.
 
 Use the parameter partner=picky for testing your implementation. Before going live, your account manager will assign your custom partner ID to you.
-
-## Group places
-
-Returns the list of Skypicker api ids. This ids has to be used in the SP search (flights API call)
-From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), even if they dont appear in the places call
-
-
-### GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds,?v}
-
-
-+ Parameters
-    + id : SK (optional, string) - if given, the call returns the details only for the one specific id
-    + term : br (optional, string) - used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
-    + locale : cs (optional, string) - the locale of geo names in response, default is en
-    + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown
-    + bounds : lat_lo,lng_lo,lat_hi,lng_hi (optional, string) - filter only places in these bounds. "lo" corresponds to the southwest corner of the bounding box, "hi" corresponds to the northeast corner of that box
-    + v : 1 (optional, integer)  - the api version, from v = 2 it returns the new api ids for the whole world. Every new partner should use v = 3
-
-+ Request
-    { "term":"BRQ" }
-
-+ Response 200
-    {
-        "zoomLevelThreshold": 7,
-        "numberOfAirports": 1,
-        "sp_score": null,
-        "value": "Brno",
-        "rank": 8,
-        "parentId": 1,
-        "lat": 49.1952,
-        "lng": 16.608,
-        "type": 0,
-        "id": "BRQ"
-    }
 
 ## Group flights
 
