@@ -73,7 +73,7 @@ From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), 
     + id : SK (optional, string) - if given, the call returns the details only for the one specific id
     + term : br (optional, string) - used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
     + locale : cs (optional, string) - the locale of geo names in response, default is en
-    + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown
+    + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown. DEPRECATED
     + bounds : lat_lo,lng_lo,lat_hi,lng_hi (optional, string) - filter only places in these bounds. "lo" corresponds to the southwest corner of the bounding box, "hi" corresponds to the northeast corner of that box
     + v : 1 (optional, integer)  - the api version, from v = 2 it returns the new api ids for the whole world. Every new partner should use v = 3
 
@@ -354,7 +354,41 @@ The google flights like filters (price_from,price_to and the next ones) are not 
             + `fi`
             + `nl`
             + `se`
-
+            + `ar`
+            + `br`
+            + `cs`
+            + `da`
+            + `de`
+            + `el`
+            + `en`
+            + `es`
+            + `fa`
+            + `fi`
+            + `fr`
+            + `he`
+            + `hu`
+            + `is`
+            + `it`
+            + `ja`
+            + `ko`
+            + `lt`
+            + `my`
+            + `nl`
+            + `no`
+            + `pl`
+            + `pt`
+            + `ro`
+            + `ru`
+            + `se`
+            + `sk`
+            + `sr`
+            + `sv`
+            + `th`
+            + `tr`
+            + `uk`
+            + `ur`
+            + `yi`
+            + `zh`
 
     + price_from : 1 (optional, integer) - result filter, minimal price
     + price_to : 10000 (optional, integer) - result filter, maximal price
@@ -549,7 +583,6 @@ To do a request, send a POST json payload with a list of API parameters for each
 
 A sample python code for this call could look like the following (this is an example, all of the /flights parameters can be used)
 
-
 In the response root, the results field contains a list of responses for the posted queries. Each single element contains the same response as it would be a /flights API call.
 
 Please keep in mind, that valid json quotes are only ", not '
@@ -581,8 +614,8 @@ The main_booking_token in the response root should be used for booking the fligh
         
         print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
     }
-    
-    
+
+
 ## Group check_flights
 
 Please see our booking documentation http://docs.skypickerbookingapi1.apiary.io/#reference/check-flights
