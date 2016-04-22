@@ -624,18 +624,6 @@ Please see our booking documentation http://docs.skypickerbookingapi1.apiary.io/
 
 Please refer to our documentation on save_booking http://docs.skypickerbookingapi1.apiary.io/#reference/save-booking
 
-## Group zooz_payment
+## Group confirm_payment
 
-Makes a zooz transaction (the implementation is done on frontend)
-
-### POST /zooz_payment{/booking_id,?token,?sandbox}
-
-+ Parameters
-    + booking_id (required, integer) ... the booking id you got from save_booking
-    + token (required, string) ... the random string generated from the payment gateway used for payment (depends on the gateway)
-    + sandbox (optional, bool) ... use sandbox for payment
-
-
-+ Response 200
-
-        {"status":"closed"}
+Please see our documentation on confirm_payment http://docs.skypickerbookingapi1.apiary.io/#reference/payment/confirmpayment
