@@ -627,3 +627,69 @@ Please refer to our documentation on save_booking http://docs.skypickerbookingap
 ## Group confirm_payment
 
 Please see our documentation on confirm_payment http://docs.skypickerbookingapi1.apiary.io/#reference/payment/confirmpayment
+
+## Group check_itinerary
+
+Request JSON data:
+
++ price - is price in eur.
++ segments - contains all flight segment what is needed to book with one itenerary:
+
+    + airline - code of airline
+    + dtime - departure time in local time of single flight
+    + atime - arrival time in local time of single flight
+    + src - departure airport
+    + dst - destination airport
+    + flight_no - flight number
+    + itinerary_id - increment id of itinerary what will be used as pairing key what needs to be booked together as one pnr.
+    + fare_code(optional) - fare code prefered on booking
+    
+Date sent in response:
+
++ request - in request will be all requested details.
++ booking_details - informations needed to process booking
+    + price - verified price of flights for how much we can process that flights booking
+    + valid - if we are unable process this booking, than valid will be false. (It can happen when flights are not available anymore)
+    + booking_token - booking token what will be used for call to booking api.
+    + guarantee_applied - list of connections where guarantee will be applied
+
+### POST /check_itinerary
+
++ Request (application/json)
+    {
+        "segments":[
+            {"airline": "DE", "dtime": 29839230923, "atime": "932809283023", "src": "PRG", "dst": "STN", "flight_no": 1392, "itinerary_id": 1, "fare_code": "Y"},
+            {"airline": "SU", "dtime": 29839230923, "atime": "932809283023", "src": "STN", "dst": "VRO", "flight_no": 2983, "itinerary_id": 2}
+        ],
+        "price": 299,
+        "passengers": {
+            "infants": 0,
+            "adults": 1,
+            "children": 0
+        }
+    }
+    
++ Response (application/json)
+
+    {
+        "request": {
+            "segments":[
+                {"airline":"DE","dtime":29839230923,"atime":"932809283023","src":"PRG","dst":"STN","flight_no":1392,"itinerary_id":1, "fare_code": "Y"},
+                {"airline":"SU","dtime":29839230923,"atime":"932809283023","src":"STN","dst":"VRO","flight_no":2983,"itinerary_id":2}
+            ],
+            "price": 299,
+            "passengers": {
+                "infants": 0,
+                "adults": 1,
+                "children": 0
+            }
+        },
+        "booking_details": {
+            "price": 310,
+            "valid": True/False,
+            "booking_token": "2938394U98FDJKSBJFKH IUZ4B98NZ3IOVHSJFGJHKFGD O87B3Z498UHJFSHHGGBW87VZWPUIHDAOBZ3B4bZ89RUHADS",
+            "guarantee_applied": [
+                (1,2)
+            ],
+        }
+    }
