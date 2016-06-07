@@ -643,6 +643,7 @@ Request JSON data:
     + flight_no - flight number
     + itinerary_id - increment id of itinerary what will be used as pairing key what needs to be booked together as one pnr.
     + fare_code(optional) - fare code prefered on booking
++ passengers - details about passengers - see below
     
 Date sent in response:
 
@@ -652,7 +653,7 @@ Date sent in response:
     + valid - if we are unable process this booking, than valid will be false. (It can happen when flights are not available anymore)
     + booking_token - booking token what will be used for call to booking api.
     + guarantee_applied - list of connections where guarantee will be applied
-+ passengers - details about passengers - see below
+
 
 ### POST /check_itinerary
 
