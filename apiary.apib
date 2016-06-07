@@ -652,23 +652,25 @@ Date sent in response:
     + valid - if we are unable process this booking, than valid will be false. (It can happen when flights are not available anymore)
     + booking_token - booking token what will be used for call to booking api.
     + guarantee_applied - list of connections where guarantee will be applied
++ passengers - details about passengers - see below
 
 ### POST /check_itinerary
 
 + Request (application/json)
+
     {
-        "segments":[
-            {"airline": "DE", "dtime": 29839230923, "atime": "932809283023", "src": "PRG", "dst": "STN", "flight_no": 1392, "itinerary_id": 1, "fare_code": "Y"},
-            {"airline": "SU", "dtime": 29839230923, "atime": "932809283023", "src": "STN", "dst": "VRO", "flight_no": 2983, "itinerary_id": 2}
-        ],
-        "price": 299,
         "passengers": {
             "infants": 0,
             "adults": 1,
             "children": 0
-        }
+        },
+        "segments": [
+            {"src":"PRG","itinerary_id":1,"flight_no":1198,"dtime":1467197400,"airline":"QS","atime":1467210600,"dst":"SVO"},
+            {"src":"SVO","itinerary_id":2,"flight_no":1199,"dtime":1467732000,"airline":"QS","atime":1467738600,"dst":"PRG"}
+        ],
+        "price":198
     }
-    
+
 + Response (application/json)
 
     {
