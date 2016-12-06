@@ -40,8 +40,8 @@ You may want to **combine** more parameters, then always put " **&** " to separa
 Now we have all geo names beginning with br in Czech language.
 
 Some of the parameters are **mandatory** for use in specific calls. Check it in **Details** column of every parameter, 
-e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are required https://api.skypicker.com/flights?flyFrom=PRG&to=OPO&dateFrom=01/06/2015&dateTo=30/06/2015 
-We get all flights from Prague to Porto, from Jun 6, 2015 until Jun 30, 2015
+e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are required https://api.skypicker.com/flights?flyFrom=PRG&to=LGW&dateFrom=18/06/2017&dateTo=25/06/2017&partner=picky.
+We get all flights from Prague to London, from May 18, 2017 until May 25, 2017
 
 Correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
 
@@ -54,7 +54,7 @@ https://api.skypicker.com/places
 #### Search
 The basic flights call could look like this
 
-https://api.skypicker.com/flights?flyFrom=CZ&to=OPO&dateFrom=10/10/2014&dateTo=20/10/2014&partner=picky
+https://api.skypicker.com/flights?flyFrom=PRG&to=LGW&dateFrom=18/06/2017&dateTo=25/06/2017&partner=picky
 
 If there is the partner parameter specified, the response will contain the link directly to Skypicker booking, where user can book the specified flight.
 
@@ -588,7 +588,7 @@ In the response root, the results field contains a list of responses for the pos
 Please keep in mind, that valid json quotes are only ", not '
 
 Each result has its own deeplink which can be used to forward the user to Skypicker booking e.g. 
-https://www.skypicker.com/deep?type=default&from=PRG&to=LHR&departure=14-06-2016&flightsId=272290790|272398486&affilid=picky&price=85.6174&passengers=1&lang=en&currency=GBP&booking_token=GamFTRHoBQ/v6QB8IrykhpoVGKB0KA6sVANbFz24Dyu3VGSgdrTrERd1E37H1zyFanlCQ5r1TTITv0H1r6jb1+jf5mRmiovpeHu/p9bJBO/tWZyhvtLncCZG+OX6XbsbSmhJbUxVk8AZzELMsVlItcR9B1OWa0H9lhS6Oa+P0KKTIj3q8VgcJvBcXM7v6RARbJT+fojtCrBYUTKuEVnJTwezq2f1ICqEJnd7T4Yjl3S1LeK6j4nNNXv5lyf+c+HPRyYsFKDOstpjtc6U7VF4tyVOgKo7+A69ofFjM3WpycOEx5wfovufn2dk1HY3fByAvt/yDySZBcBSmvxqfhbRzwALAw/jSoWbpbVZpHTMzvRH03k4hDip096IUO8Fzv8T
+https://www.skypicker.com/deep?type=default&from=PRG&to=LGW&departure=24-05-2017&flightsId=EJ635397264_189412776%7CEJ635397264_203224652&affilid=picky&price=78&passengers=1&lang=en&currency=GBP&booking_token=GamFTRHoBQ%2Fv6QB8IrykhpoVGKB0KA6sVANbFz24Dysa%2Btv8RDKePuXd0gMoWNZtroOXF%2BfO3fCLZ2ifi2bX%2F6pARs2%2BL4SCj%2FMPCz7A8VhRbcA3l2oWqbFdLAgK5KoX1GbT8rDRzbX74ht5Kt6dSHkGKFj%2F60E5Te1YshXVQhgZWzaFAuQ%2BZQ8X%2BMZ9YTwafUFV6K64YKFEF1%2BLPpUlcmqGNY9vzERgsQEfNLUUrCpDbkVRsgcXZMo8I3kt%2BG9B0a6IUViEKm328bxTLQOyAbsv0Eyf469eMuPyNNupwBEBDHWxfYgRz8lsayiRSXSbRMa4i1FpG0buiPdstLs8I3zRZsBvkzx4N525ePFeqMDhDCr6uBkf6xSkMmjiQAUBlsjVW2lvtQJGFr2ihNNuNlZTAL86RR22aGJ0abCzvcY%3D
 
 The total_price is the sum of all the prices.
 
