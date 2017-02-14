@@ -103,7 +103,7 @@ A single flights search.
 The google flights like filters (price_from,price_to and the next ones) are not well documented and even not tested for properly functioning, yet. 
 
 
-### GET /flights{flyFrom,to,dateFrom,dateTo,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner,?limit,?offset}
+### GET /flights{flyFrom,to,dateFrom,dateTo,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner,?partner_market,?limit,?offset}
 
 
 + Parameters
@@ -158,6 +158,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + directFlights : 0 (optional, boolean) - search only for direct flights, can be set to 0 or 1, 0 is default
 
     + partner : picky (required, string) - partner ID. If present, in the result will be also a link to a specific trip directly to skypicker.com, with the affiliate id included (use picky partner ID for testing)
+    + partner_market : us (required, string) - Market from which the request is coming from.
     + v : 2 (optional, integer) - api version, defaults to 1, in case of 2 the response format contains additional information (country codes and names, for now used only on skypicker.com frontend)
     
     + xml : 0 (optional, integer) - returns an xml response instead of json
