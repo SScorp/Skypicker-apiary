@@ -46,7 +46,7 @@ We get all flights from Prague to London, from May 18, 2017 until May 25, 2017
 Correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
 
 
-#### Places
+#### Places [/places]
 The basic places call is this
 
 https://api.skypicker.com/places
@@ -67,8 +67,9 @@ In case you can't find what you're looking for here in docs, please, contact us 
 Returns the list of Skypicker api ids. This ids has to be used in the SP search (flights API call)
 From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), even if they dont appear in the places call
 
+## places [/places{?id,term,locale,zoomLevelThreshold,bounds,v}]
 
-### GET /places{/id,?term,?locale, ?zoomLevelThreshold, ?bounds,?v}
+### GET [GET]
 
 
 + Parameters
@@ -80,21 +81,23 @@ From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), 
     + v : 1 (optional, integer)  - the api version, from v = 2 it returns the new api ids for the whole world. Every new partner should use v = 3
 
 + Request
-    { "term":"BRQ" }
+    
+        { "term":"BRQ" }
 
 + Response 200
-    {
-        "zoomLevelThreshold": 7,
-        "numberOfAirports": 1,
-        "sp_score": null,
-        "value": "Brno",
-        "rank": 8,
-        "parentId": 1,
-        "lat": 49.1952,
-        "lng": 16.608,
-        "type": 0,
-        "id": "BRQ"
-    }
+
+        {
+            "zoomLevelThreshold": 7,
+            "numberOfAirports": 1,
+            "sp_score": null,
+            "value": "Brno",
+            "rank": 8,
+            "parentId": 1,
+            "lat": 49.1952,
+            "lng": 16.608,
+            "type": 0,
+            "id": "BRQ"
+        }
 
 ## Group flights
 
@@ -102,18 +105,18 @@ A single flights search.
 
 The google flights like filters (price_from,price_to and the next ones) are not well documented and even not tested for properly functioning, yet. 
 
+## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,typeFlight,passengers,adults,children,infants,flyDays,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,limit,offset,xml,curr,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,booking_token,sort,asc}]
 
-### GET /flights{flyFrom,to,dateFrom,dateTo,?longitudeFrom,?latitudeFrom,?radiusFrom,?longitudeFrom,?longitudeTo,?latitudeTo,?radiusTo,?daysInDestinationFrom,?daysInDestinationTo,?returnFrom,?returnTo,?typeFlight,?passengers,?flyDays,?oneforcity,?onlyWorkingDays,?onlyWeekends,?directFlights,?locale,?partner,?partner_market,?limit,?offset}
-
+### GET [GET]
 
 + Parameters
 
     + flyFrom (required, string,`CZ`) ... Skypicker api id of the departure destination. Accepts the list of airport codes, city ID, two letter country code or metropolitan coded. For multicity search enter any number of values separated by comma. E.g. LON - checks every airport in London, LHR - checks flights from London Heathrow, UK - flights from United Kingdom 
     + to (optional, string, `porto`) ... Skypicker api id of the arrival destination. Can also accept a list of airport codes separated by a comma for multicity search. E.g. BRQ,PRG,BTS,BUD. If you don't include any value you'll get results for all the airports in the world.
-    + dateFrom (required, string,`08/02/2016`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a daterange for the flight departure.**
+    + dateFrom (required, string,`08/08/2017`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a daterange for the flight departure.**
         Parameter dateFrom 01/05/2016 and dateTo 30/05/2016 means, that the departure can be anytime between those dates.
         For the dates of the return flights, use the returnTo&returnFrom or daysInDestinationFrom & daysInDestinationTo parameters
-    + dateTo (required, string,`08/03/2016`) ... search flights until this date (dd/mm/YYYY)
+    + dateTo (required, string,`08/09/2017`) ... search flights until this date (dd/mm/YYYY)
 
     + longitudeFrom : 14.0000 (optional, float) - longitude of the pinpoint for geo based search, for the departure destination
     + latitudeFrom : 50.2000 (optional, float) - lat of the pinpoint for geo based search, fot the departure destination
@@ -130,8 +133,8 @@ The google flights like filters (price_from,price_to and the next ones) are not 
         (use only one from the daysInDestination and returnFrom/returnTo parameters. If both of them are given, the API uses the daysInDest parameters
         and the return dates are ignored). When you omit one of these two params, the default value for daysInDestinationFrom is 1 and for daysInDestinationTo is 14.
     
-    + returnFrom : 08/02/2016 (optional, string) - min return of the whole trip (dd/mm/YYYY)
-    + returnTo : 08/02/2016 (optional, string) - max return date of the whole trip (dd/mm/YYYY)
+    + returnFrom : 08/08/2017 (optional, string) - min return of the whole trip (dd/mm/YYYY)
+    + returnTo : 08/09/2017 (optional, string) - max return date of the whole trip (dd/mm/YYYY)
     
     + typeFlight (optional, string, `oneway`) ... switch for oneway/round flights search - will be deprecated in the near future
         (until then, you have to use the round parameter if one from the daysInDestination of returndate parameters is given.)
@@ -141,8 +144,8 @@ The google flights like filters (price_from,price_to and the next ones) are not 
             + `oneway`
             
     
-    + oneforcity : 0 (optional, boolean) - filters out the cheapest flights to every city covered by the **to** parameter. E.g. if you set it to 1 and your search is from PRG to LON/BUD/NYC, you'll get 3 results: the cheapest PRG-LON, the cheapest PRG-BUD, and the cheapest PRG-NYC.
-    + one_per_date : 0 (optional, boolean) - filters out the cheapest flights for one date. Can be 0 or not included, or one of these two params can be set to 1
+    + oneforcity : 0 (optional, boolean) - returns the cheapest flights to every city covered by the **to** parameter. E.g. if you set it to 1 and your search is from PRG to LON/BUD/NYC, you'll get 3 results: the cheapest PRG-LON, the cheapest PRG-BUD, and the cheapest PRG-NYC.
+    + one_per_date : 0 (optional, boolean) - returns the cheapest flights for one date. Can be 0 or not included, or one of these two params can be set to 1
     
     + passengers : 1 (optional, integer) - number of passengers. Default for defining the num of passengers.
     
@@ -418,165 +421,166 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     
 + Response 200 (application/json)
 
-{
-  "search_params": {
-    "to_type": "airport",
-    "flyFrom_type": "airport"
-  },
-  "time": 1,
-  "connections": [],
-  "currency": "pln",
-  "currency_rate": 0.2353,
-  
-
-  "data": [
-    {
-      "mapIdfrom": "edinburgh",
-      "return_duration": "10h 55m",
-      "flyTo": "WMI",
-      "conversion": {
-        "PLN": 1154,
-        "EUR": 271
-      },
-      "deep_link": "https://www.skypicker.com/deep?type=abc-m14.5&from=EDI&to=WMI&departure=19-12-2015&return=23-12-2015&flightsId=240466858|236557749|245258276|234220297&affilid=skyscanner_pl&price=271.5362&passengers=1&lang=pl&currency=pln&booking_token=NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
-      "mapIdto": "warsaw",
-      "nightsInDest": 3,
-      "id": "240466858|236557749|245258276|234220297",
-      "fly_duration": "24h 10m",
-      "countryTo": {
-        "code": "PL",
-        "name": "Rzeczpospolita Polska"
-      },
-      "baglimit": {
-        "hand_width": 40,
-        "hand_length": 55,
-        "hold_weight": 15,
-        "hand_height": 20,
-        "hand_weight": 10
-      },
-      "aTimeUTC": 1450643100,
-      "distance": 1624.4,
-      "price": 1154,
-      "type_flights": [
-        "lcc"
-      ],
-      "bags_price": {
-        "1": 100.0,
-        "2": 200.0
-      },
-      "cityTo": "Warszawa",
-      "flyFrom": "EDI",
-      "dTimeUTC": 1450556100,
-      "p2": 232,
-      "countryFrom": {
-        "code": "GB",
-        "name": "Zjednoczone Królestwo Wielkiej Brytanii"
-      },
-      "p1": 232,
-      "dTime": 1450556100,
-      "booking_token": "NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
-      "cityFrom": "Edynburg",
-      "aTime": 1450646700,
-      
-      "route": [
         {
-          "bags_recheck_required": false,
-          "aTimeUTC": 1450560300,
-          "mapIdfrom": "edinburgh",
-          "mapIdto": "dublin",
-          "flight_no": 819,
-          "dTime": 1450556100,
-          "latTo": 53.3331,
-          "flyTo": "DUB",
-          "return": 0,
-          "source": null,
-          "id": "240466858",
-          "airline": "FR",
-          "lngTo": -6.24889,
-          "cityTo": "Dublin",
-          "cityFrom": "Edynburg",
-          "lngFrom": -3.1936633587,
-          "aTime": 1450560300,
-          "flyFrom": "EDI",
-          "price": 21.0,
-          "latFrom": 55.9485946759,
-          "dTimeUTC": 1450556100
-        },
-        {
-          "bags_recheck_required": true,
-          "aTimeUTC": 1450643100,
-          "mapIdfrom": "dublin",
-          "mapIdto": "warsaw",
-          "flight_no": 4543,
-          "dTime": 1450633200,
-          "latTo": 52.2298,
-          "flyTo": "WMI",
-          "return": 0,
-          "source": null,
-          "id": "236557749",
-          "airline": "FR",
-          "lngTo": 21.0118,
-          "cityTo": "Warszawa",
-          "cityFrom": "Dublin",
-          "lngFrom": -6.24889,
-          "aTime": 1450646700,
-          "flyFrom": "DUB",
-          "price": 133.0,
-          "latFrom": 53.3331,
-          "dTimeUTC": 1450633200
-        },
-        {
-          "bags_recheck_required": true,
-          "aTimeUTC": 1450914900,
-          "mapIdfrom": "warsaw",
-          "mapIdto": "dublin",
-          "flight_no": 4544,
-          "dTime": 1450907400,
-          "latTo": 53.3331,
-          "flyTo": "DUB",
-          "return": 1,
-          "source": null,
-          "id": "245258276",
-          "airline": "FR",
-          "lngTo": -6.24889,
-          "cityTo": "Dublin",
-          "cityFrom": "Warszawa",
-          "lngFrom": 21.0118,
-          "aTime": 1450914900,
-          "flyFrom": "WMI",
-          "price": 63.0,
-          "latFrom": 52.2298,
-          "dTimeUTC": 1450903800
-        },
-        {
-          "bags_recheck_required": true,
-          "aTimeUTC": 1450943100,
-          "mapIdfrom": "dublin",
-          "mapIdto": "edinburgh",
-          "flight_no": 812,
-          "dTime": 1450938600,
-          "latTo": 55.9485946759,
-          "flyTo": "EDI",
-          "return": 1,
-          "source": null,
-          "id": "234220297",
-          "airline": "FR",
-          "lngTo": -3.1936633587,
-          "cityTo": "Edynburg",
-          "cityFrom": "Dublin",
-          "lngFrom": -6.24889,
-          "aTime": 1450943100,
-          "flyFrom": "DUB",
-          "price": 15.0,
-          "latFrom": 53.3331,
-          "dTimeUTC": 1450938600
+          "search_params": {
+            "to_type": "airport",
+            "flyFrom_type": "airport"
+          },
+          "time": 1,
+          "connections": [],
+          "currency": "pln",
+          "currency_rate": 0.2353,
+          
+        
+          "data": [
+            {
+              "mapIdfrom": "edinburgh",
+              "return_duration": "10h 55m",
+              "flyTo": "WMI",
+              "conversion": {
+                "PLN": 1154,
+                "EUR": 271
+              },
+              "deep_link": "https://www.skypicker.com/deep?type=abc-m14.5&from=EDI&to=WMI&departure=19-12-2015&return=23-12-2015&flightsId=240466858|236557749|245258276|234220297&affilid=skyscanner_pl&price=271.5362&passengers=1&lang=pl&currency=pln&booking_token=NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
+              "mapIdto": "warsaw",
+              "nightsInDest": 3,
+              "id": "240466858|236557749|245258276|234220297",
+              "fly_duration": "24h 10m",
+              "countryTo": {
+                "code": "PL",
+                "name": "Rzeczpospolita Polska"
+              },
+              "baglimit": {
+                "hand_width": 40,
+                "hand_length": 55,
+                "hold_weight": 15,
+                "hand_height": 20,
+                "hand_weight": 10
+              },
+              "aTimeUTC": 1450643100,
+              "distance": 1624.4,
+              "price": 1154,
+              "type_flights": [
+                "lcc"
+              ],
+              "bags_price": {
+                "1": 100.0,
+                "2": 200.0
+              },
+              "cityTo": "Warszawa",
+              "flyFrom": "EDI",
+              "dTimeUTC": 1450556100,
+              "p2": 232,
+              "countryFrom": {
+                "code": "GB",
+                "name": "Zjednoczone Królestwo Wielkiej Brytanii"
+              },
+              "p1": 232,
+              "dTime": 1450556100,
+              "booking_token": "NwyrOTUtH6wv4BdWZTvOrbnFTa5SOifCjnpGoAl4cKO2kB2HhT7afLhR/TDxb+eFu4YtIczyK0WbM+XCt51oGwDK7vohxDpNs2GE3fTG8FoBhxY59V7abVbbkEWcRIOXaJcmIZB1tq37mciGQWi4Sc29PEWEgFYVwxJYBIOJMNLYkB8FOhhUNMDmnaVNHDOgySMJd4it4r5fhopJczkKnJIKoMFEelHE0x5203/3dHkfA7iBk4/c1OYTA61XBIAlsCuTH4D0j0IHASTFV4VXT36kZS9oxvJuya4nyDoff2017Up/UHkaXQbNBAoD5W0A",
+              "cityFrom": "Edynburg",
+              "aTime": 1450646700,
+              
+              "route": [
+                {
+                  "bags_recheck_required": false,
+                  "aTimeUTC": 1450560300,
+                  "mapIdfrom": "edinburgh",
+                  "mapIdto": "dublin",
+                  "flight_no": 819,
+                  "dTime": 1450556100,
+                  "latTo": 53.3331,
+                  "flyTo": "DUB",
+                  "return": 0,
+                  "source": null,
+                  "id": "240466858",
+                  "airline": "FR",
+                  "lngTo": -6.24889,
+                  "cityTo": "Dublin",
+                  "cityFrom": "Edynburg",
+                  "lngFrom": -3.1936633587,
+                  "aTime": 1450560300,
+                  "flyFrom": "EDI",
+                  "price": 21.0,
+                  "latFrom": 55.9485946759,
+                  "dTimeUTC": 1450556100
+                },
+                {
+                  "bags_recheck_required": true,
+                  "aTimeUTC": 1450643100,
+                  "mapIdfrom": "dublin",
+                  "mapIdto": "warsaw",
+                  "flight_no": 4543,
+                  "dTime": 1450633200,
+                  "latTo": 52.2298,
+                  "flyTo": "WMI",
+                  "return": 0,
+                  "source": null,
+                  "id": "236557749",
+                  "airline": "FR",
+                  "lngTo": 21.0118,
+                  "cityTo": "Warszawa",
+                  "cityFrom": "Dublin",
+                  "lngFrom": -6.24889,
+                  "aTime": 1450646700,
+                  "flyFrom": "DUB",
+                  "price": 133.0,
+                  "latFrom": 53.3331,
+                  "dTimeUTC": 1450633200
+                },
+                {
+                  "bags_recheck_required": true,
+                  "aTimeUTC": 1450914900,
+                  "mapIdfrom": "warsaw",
+                  "mapIdto": "dublin",
+                  "flight_no": 4544,
+                  "dTime": 1450907400,
+                  "latTo": 53.3331,
+                  "flyTo": "DUB",
+                  "return": 1,
+                  "source": null,
+                  "id": "245258276",
+                  "airline": "FR",
+                  "lngTo": -6.24889,
+                  "cityTo": "Dublin",
+                  "cityFrom": "Warszawa",
+                  "lngFrom": 21.0118,
+                  "aTime": 1450914900,
+                  "flyFrom": "WMI",
+                  "price": 63.0,
+                  "latFrom": 52.2298,
+                  "dTimeUTC": 1450903800
+                },
+                {
+                  "bags_recheck_required": true,
+                  "aTimeUTC": 1450943100,
+                  "mapIdfrom": "dublin",
+                  "mapIdto": "edinburgh",
+                  "flight_no": 812,
+                  "dTime": 1450938600,
+                  "latTo": 55.9485946759,
+                  "flyTo": "EDI",
+                  "return": 1,
+                  "source": null,
+                  "id": "234220297",
+                  "airline": "FR",
+                  "lngTo": -3.1936633587,
+                  "cityTo": "Edynburg",
+                  "cityFrom": "Dublin",
+                  "lngFrom": -6.24889,
+                  "aTime": 1450943100,
+                  "flyFrom": "DUB",
+                  "price": 15.0,
+                  "latFrom": 53.3331,
+                  "dTimeUTC": 1450938600
+                }
+              ]
+            }
+         ]
         }
-      ]
-    }
- ]
-}
 
 ## Group flights_multi
+
 
 This call is able to do multi-city searches in parallel. The single search queries dont have to be connected in any way.
 
@@ -597,7 +601,9 @@ The total_price is the sum of all the prices.
 
 The main_booking_token in the response root should be used for booking the flights, instead the booking_token in each single search query result.
 
-### POST /flights_multi{?partner,?locale,?curr}
+## flights_multi [/flights_multi{?partner,locale,curr}]
+
+### POST [POST]
 
 + Parameters
     + partner : `picky` (required, string) - your partner ID
@@ -606,17 +612,18 @@ The main_booking_token in the response root should be used for booking the fligh
     
 
 + Request (application/json)
-    {
-        import requests
-        import json
         
-        r = {"requests": [
-                {"to": "PRG", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "11/06/2016", "dateTo": "28/06/2016"},
-                {"to": "AMS", "flyFrom": "OSL", "directFlights": 0, "dateFrom": "01/07/2016", "dateTo": "11/07/2016"}
-        ]}
-        
-        print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
-    }
+        {
+            import requests
+            import json
+            
+            r = {"requests": [
+                    {"to": "PRG", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "11/06/2016", "dateTo": "28/06/2016"},
+                    {"to": "AMS", "flyFrom": "OSL", "directFlights": 0, "dateFrom": "01/07/2016", "dateTo": "11/07/2016"}
+            ]}
+            
+            print requests.post('https://api.skypicker.com/flights_multi?partner=partnerID', data = json.dumps(r) ).json()
+        }
 
 
 ## Group check_flights
@@ -662,40 +669,40 @@ Date sent in response:
 
 + Request (application/json)
 
-    {
-        "passengers": {
-            "infants": 0,
-            "adults": 1,
-            "children": 0
-        },
-        "segments": [
-            {"src":"PRG","itinerary_id":1,"flight_no":1198,"dtime":1467197400,"airline":"QS","atime":1467210600,"dst":"SVO"},
-            {"src":"SVO","itinerary_id":2,"flight_no":1199,"dtime":1467732000,"airline":"QS","atime":1467738600,"dst":"PRG"}
-        ],
-        "price":198
-    }
-
-+ Response (application/json)
-
-    {
-        "request": {
-            "segments":[
-                {"airline":"DE","dtime":29839230923,"atime":"932809283023","src":"PRG","dst":"STN","flight_no":1392,"itinerary_id":1, "fare_code": "Y"},
-                {"airline":"SU","dtime":29839230923,"atime":"932809283023","src":"STN","dst":"VRO","flight_no":2983,"itinerary_id":2}
-            ],
-            "price": 299,
+        {
             "passengers": {
                 "infants": 0,
                 "adults": 1,
                 "children": 0
-            }
-        },
-        "booking_details": {
-            "price": 310,
-            "valid": true,
-            "booking_token": "2938394U98FDJKSBJFKH IUZ4B98NZ3IOVHSJFGJHKFGD O87B3Z498UHJFSHHGGBW87VZWPUIHDAOBZ3B4bZ89RUHADS",
-            "guarantee_applied": [
-                1
-            ]
+            },
+            "segments": [
+                {"src":"PRG","itinerary_id":1,"flight_no":1198,"dtime":1467197400,"airline":"QS","atime":1467210600,"dst":"SVO"},
+                {"src":"SVO","itinerary_id":2,"flight_no":1199,"dtime":1467732000,"airline":"QS","atime":1467738600,"dst":"PRG"}
+            ],
+            "price":198
         }
-    }
+
++ Response 200 (application/json)
+
+        {
+            "request": {
+                "segments":[
+                    {"airline":"DE","dtime":29839230923,"atime":"932809283023","src":"PRG","dst":"STN","flight_no":1392,"itinerary_id":1, "fare_code": "Y"},
+                    {"airline":"SU","dtime":29839230923,"atime":"932809283023","src":"STN","dst":"VRO","flight_no":2983,"itinerary_id":2}
+                ],
+                "price": 299,
+                "passengers": {
+                    "infants": 0,
+                    "adults": 1,
+                    "children": 0
+                }
+            },
+            "booking_details": {
+                "price": 310,
+                "valid": true,
+                "booking_token": "2938394U98FDJKSBJFKH IUZ4B98NZ3IOVHSJFGJHKFGD O87B3Z498UHJFSHHGGBW87VZWPUIHDAOBZ3B4bZ89RUHADS",
+                "guarantee_applied": [
+                    1
+                ]
+            }
+        }
