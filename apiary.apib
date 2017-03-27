@@ -111,22 +111,37 @@ The google flights like filters (price_from,price_to and the next ones) are not 
 
 + Parameters
 
-    + flyFrom (required, string,`CZ`) ... Skypicker api id of the departure destination. Accepts the list of airport codes, city ID, two letter country code or metropolitan coded. For multicity search enter any number of values separated by comma. E.g. LON - checks every airport in London, LHR - checks flights from London Heathrow, UK - flights from United Kingdom 
-    + to (optional, string, `porto`) ... Skypicker api id of the arrival destination. Can also accept a list of airport codes separated by a comma for multicity search. E.g. BRQ,PRG,BTS,BUD. If you don't include any value you'll get results for all the airports in the world.
+    + flyFrom (required, string,`CZ`) ... Skypicker api id of the departure destination. 
+        Accepts multiple values separated by comma, these values might be airport codes, 
+        city IDs, two letter country codes, metropolitan codes and radiuses. 
+        Radius needs to be in form lat-lon-xkm. E.g. `-23.24--47.86-500km` for places 
+        around Sao Paulo, LON - checks every airport in London, LHR - checks flights 
+        from London Heathrow, UK - flights from United Kingdom 
+    + to (optional, string, `porto`) ... Skypicker api id of the arrival destination. 
+        Accepts the same values in the same format as `flyFrom` parameter. 
+    If you don't include any value you'll get results for all the airports in the world.
     + dateFrom (required, string,`08/08/2017`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a daterange for the flight departure.**
         Parameter dateFrom 01/05/2016 and dateTo 30/05/2016 means, that the departure can be anytime between those dates.
         For the dates of the return flights, use the returnTo&returnFrom or daysInDestinationFrom & daysInDestinationTo parameters
     + dateTo (required, string,`08/09/2017`) ... search flights until this date (dd/mm/YYYY)
 
-    + longitudeFrom : 14.0000 (optional, float) - longitude of the pinpoint for geo based search, for the departure destination
-    + latitudeFrom : 50.2000 (optional, float) - lat of the pinpoint for geo based search, fot the departure destination
-    + radiusFrom : 200 (optional, integer) - search radius in km, max 250
-        (radiusFrom works only with longitudeFrom and latitudeFrom. In this case, the **flyFrom** parameter is ignored)
+    + longitudeFrom : 14.0000 (optional, float) - DEPRECATED - please use radiuses 
+        specified in **flyFrom** parameter (longitude of the pinpoint for geo based search, 
+        for the departure destination)
+    + latitudeFrom : 50.2000 (optional, float) - DEPRECATED (lat of the pinpoint for 
+        geo based search, fot the departure destination)
+    + radiusFrom : 200 (optional, integer) - DEPRECATED (search radius in km, max 250.
+        **radiusFrom** works only with **longitudeFrom** and **latitudeFrom**. 
+        In this case, the **flyFrom** parameter is ignored)
         
-    + longitudeTo : 14.0000 (optional, float) - longitude of the pinpoint for geo based, for the arrival destination
-    + latitudeTo : 50.2000 (optional, float) - lat of the pinpoint for geo based search, for the arrival destination
-    + radiusTo : 200 (optional, integer) - search radius in km, max 250
-        (radiusTo works only with longitudeTo and latitudeTo. In this case, the **to** parameter is ignored)
+    + longitudeTo : 14.0000 (optional, float) - DEPRECATED - please use radiuses 
+        specified in **to** parameter (longitude of the pinpoint for geo based, for the 
+        arrival destination)
+    + latitudeTo : 50.2000 (optional, float) - DEPRECATED (lat of the pinpoint for 
+        geo based search, for the arrival destination)
+    + radiusTo : 200 (optional, integer) - DEPRECATED (search radius in km, max 250.
+        **radiusTo** works only with **longitudeTo** and **latitudeTo**. In this case, 
+        the **to** parameter is ignored)
     
     + daysInDestinationFrom : 2 (optional, integer) - the minimal length of stay in the destination given in the **to** parameter. Counts nights, not days
     + daysInDestinationTo : 14 (optional, integer) - the max length of stay in the destination given in the **to** parameter
