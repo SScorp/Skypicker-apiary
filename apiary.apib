@@ -168,9 +168,24 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + children : 0 (optional, integer) - number of children
     + infants : 0 (optional, integer) - number of infants
     
-    + flyDays  : [0,1,2,3,4,5,6] (optional, list) - the list of days for the departure (0-Sunday)
-        (url encoded format for all days flyDays%5B%5D=0&flyDays%5B%5D=1&flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&flyDays%5B%5D=5&flyDays%5B%5D=6)
+    + flyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the flight, 0 is Sunday (**flyDaysType** is used to tell if the days should be departure or arrival of the flight,
+        url encoded format for all days: flyDays%5B%5D=0&flyDays%5B%5D=1&flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&flyDays%5B%5D=5&flyDays%5B%5D=6)
+    
+    + flyDaysType (optional, string, `departure`) ... type of set flyDays, 
         
+        + Values
+            + `departure`
+            + `arrival`
+
+    + returnFlyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the departure, 0 is Sunday (**returnFlyDaysType** is used to tell if the days should be departure or arrival of the flight,
+        url encoded format for all days: returnFlyDays%5B%5D=0&returnFlyDays%5B%5D=1&returnFlyDays%5B%5D=2&returnFlyDays%5B%5D=3&returnFlyDays%5B%5D=4&returnFlyDays%5B%5D=5&returnFlyDays%5B%5D=6)
+    
+    + returnFlyDaysType (optional, string, `departure`) ... type of set returnFlyDays
+        
+        + Values
+            + `departure`
+            + `arrival`
+    
     + onlyWorkingDays : 0 (optional, boolean) - search flights with departure only on working days
     + onlyWeekends : 0 (optional, boolean) - search flights with departure only on weekends 
     + directFlights : 0 (optional, boolean) - search only for direct flights, can be set to 0 or 1, 0 is default
