@@ -77,7 +77,10 @@ From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), 
     + term : br (optional, string) - used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
     + locale : cs (optional, string) - the locale of geo names in response, default is en
     + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown. DEPRECATED
-    + bounds : lat_lo,lng_lo,lat_hi,lng_hi (optional, string) - filter only places in these bounds. "lo" corresponds to the southwest corner of the bounding box, "hi" corresponds to the northeast corner of that box
+    + lat_lo (optional, float) - latitude of southwest corner of geo box search
+    + lng_lo (optional, float) - longitude of southwest corner of geo box search
+    + lat_hi (optional, float) - latitude of northeast corner of geo box search
+    + lng_hi (optional, float) - longitude of northeast corner of geo box search
     + v : 1 (optional, integer)  - the api version, from v = 2 it returns the new api ids for the whole world. Every new partner should use v = 3
 
 + Request
@@ -672,7 +675,8 @@ Please see our documentation on confirm_payment http://docs.skypickerbookingapi1
 
 Request JSON data:
 
-+ price - is price in eur.
++ price - price of the trip
++ currency - currency (optional, default is EUR)
 + segments - contains all flight segment what is needed to book with one itenerary:
 
     + airline - code of airline
@@ -683,7 +687,14 @@ Request JSON data:
     + flight_no - flight number
     + itinerary_id - increment id of itinerary what will be used as pairing key what needs to be booked together as one pnr.
     + fare_code(optional) - fare code prefered on booking
+    + booking_class - minimal booking class (IATA class code). Example: T, B, Y (optional)
+    + fare_basis_code - fare code used to calculate prices. Example: QLOWMO, K6OWA (optional)
+
 + passengers - details about passengers - see below
++ bag_allowance - baggage weight (in kg) which should be included in pricing (optional)
++ language - language code. Example: en, de, ru (optional)
++ point_of_sale - country code of preferred point of sale for pricing. Example: US, RU, CZ (optional)
+
     
 Date sent in response:
 
@@ -709,7 +720,8 @@ Date sent in response:
                 {"src":"PRG","itinerary_id":1,"flight_no":1198,"dtime":1467197400,"airline":"QS","atime":1467210600,"dst":"SVO"},
                 {"src":"SVO","itinerary_id":2,"flight_no":1199,"dtime":1467732000,"airline":"QS","atime":1467738600,"dst":"PRG"}
             ],
-            "price":198
+            "price":198,
+            "currency": "EUR"
         }
 
 + Response 200 (application/json)
