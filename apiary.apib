@@ -24,9 +24,7 @@ Feel free to use api.skypicker.com for the implementation and also testing.
 Currently, all  our flights are economy classand each passenger is considered an adult.  
 
 # How it works
-The rules are the same for every search except for deeplink! Deeplinking is a methodology for launching a native mobile application via a link. Deeplinking connects
-a unique url to a defined action in a mobile app or a web page, seamlessly linking users to relevant content. 
-How **deeplink** works - scroll down.
+The rules are the same for every search except for deeplink! For more information about deeplinks, please see below.  
 
 1. Always **start with** https://api.skypicker.com/
 
@@ -46,6 +44,11 @@ e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are manda
 The call will return all flights from Prague to London Gatwick, from May 18, 2017 to  May 25, 2017.  
 
 The correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
+
+# Deeplink
+Deeplinking is a methodology for launching a native mobile application via a link. Deeplinking connects
+a unique url to a defined action in a mobile app or a web page, seamlessly linking users to relevant content. When a partner ID is used, our search results
+include a deeplink.  This deeplink, when clicked, takes the user to www.kiwi.com booking page.  It will contain all the data as from the search results.  
 
 
 #### Places [/places]
@@ -110,7 +113,7 @@ A single flights search.
 
 The google flights like filters (price_from,price_to and the next ones) are not well documented and even not tested for properly functioning, yet. 
 
-## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,maxFlyDuration,typeFlight,passengers,adults,children,infants,flyDays,flyDaysType,returnFlyDays,returnFlyDaysType,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,xml,curr,locale,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,maxstopovers,connectionsOnDifferentAirport,returnFromDifferentAirport,returnToDifferentAirport,ref_tasks,innerLimit,preselectedFlightId,selectedAirlines,selectedStopoverAirports,selectedAirlinesExclude,selectedStopoverAirportsExclude,booking_token,offset,limit,sort,asc}]
+## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,maxFlyDuration,typeFlight,passengers,adults,children,infants,flyDays,flyDaysType,returnFlyDays,returnFlyDaysType,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,xml,curr,locale,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,maxstopovers,connectionsOnDifferentAirport,returnFromDifferentAirport,returnToDifferentAirport,ref_tasks,innerLimit,selectedAirlines,selectedStopoverAirports,selectedAirlinesExclude,selectedStopoverAirportsExclude,booking_token,offset,limit,sort,asc}]
 
 ### GET [GET]
 
