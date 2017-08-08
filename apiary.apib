@@ -2,17 +2,17 @@ FORMAT: 1A
 HOST: https://api.skypicker.com
 
 # Skypicker.com API
-Skypicker.com flights search API.
+This document describes the Skypicker.com flights search API.
 
-The default api endpoint is api.skypicker.com . You have to use https, always.
-Currently, SSLv3 is disabled. Use TLS 1, 1.1 or 1.2 in your client config, if you get a handshake error response.
+The default API endpoint is api.skypicker.com. When loading the API https must be used - always.
+Currently, the SSLv3 is disabled. If you receive a 'handshake failed' error response, use TLS 1, 1.1 or 1.2 in your client config.  
 
-To implement the basic search, you need only the /places and /flights API calls.
+To implement the basic search, you only need the /places and /flights API calls.
 
-To implement also the booking API, you need to use the booking_token hash containing all the needed flights data and pass it as parameters to check flights and also to save booking calls.
+In order to implement the booking API, you need to use the booking_token hash containing all the required flights data and pass it as parameters to check flights as well as to save booking calls.
 
-The places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the flyFrom and to parameters. Basically, the IDs are the IATA airport and ISO country codes, 
-but Skypicker uses also its own IDs as the engine can do very specific searches (currently anywhere and there could be other geo areas specified - "To the sea", "To party places" etc)
+The /places call contains the list of Skypicker API IDs, which are accepted by the /flights call in the 'flyFrom' and 'to' parameters. Basically, the IDs are the IATA airport and ISO country codes.  
+However, Skypicker also uses its own IDs as the engine can do very specific searches (currently _anywhere_ and there could be other geo areas specified - "To the sea", "To party places" etc.)
 
 # Partner implementation notes
 
@@ -21,60 +21,62 @@ Use the parameter partner=picky for testing your implementation. Before going li
 There is no development API, as most of the queries are simple GET requests that are not changing the state of any resource (except save_booking).
 Feel free to use api.skypicker.com for the implementation and also testing.
 
-Currently, all of our flights are economy class. We consider for now each passenger as an adult.
+Currently, all  our flights are economy classand each passenger is considered an adult.  
 
 # How it works
-For every search the rules are the same. Except deeplink! How **deeplink** works - scroll down.
+The rules are the same for every search except for deeplink! Deeplinking is a methodology for launching a native mobile application via a link. Deeplinking connects
+a unique url to a defined action in a mobile app or a web page, seamlessly linking users to relevant content. 
+How **deeplink** works - scroll down.
 
 1. Always **start with** https://api.skypicker.com/
 
-2. Choose **one specific call** from list below (places, flights, flights_multi, check_flights, save_booking, paymill_payment, zooz_payment, watchdog), 
+2. Choose **one specific call** from the list below (places, flights, flights_multi, check_flights, save_booking, paymill_payment, zooz_payment, watchdog), 
 e.g. https://api.skypicker.com/places
 
-3. For **specific searches** and filters use " **?** " after chosen call, e.g. /places?
-Then **choose parameters** from specific call list, where every available parameter is described. 
-Choose one of them and use it in exact form with " **=** ". Then **set a value** of the parameter,  e.g. https://api.skypicker.com/places?term=br
-So term is used for suggestions of geo names and "br" returns city, airport codes or country names beginning with br.
+3. For **specific searches** and filters use " **?** " after the chosen call, e.g. /places?
+4. Then **choose and specify parameters** from specific call list, where every available parameter is described. 
+Choose one of them and use it in its exact form (case sensitive) with " **=** ". Then **set a value** of the parameter, e.g. https://api.skypicker.com/places?term=br
+"Term" is used for geo names and "br" returns city, airport codes or country names beginning with "br".
 
-You may want to **combine** more parameters, then always put " **&** " to separate them, e.g. https://api.skypicker.com/places?term=br&locale=cs
-Now we have all geo names beginning with br in Czech language.
+5. You may want to **combine more parameters**.  You must place an ampersand " **&** " between the paramenters to separate them, e.g. https://api.skypicker.com/places?term=br&locale=cs
+This call will return all geo names beginning with br in Czech language.
 
-Some of the parameters are **mandatory** for use in specific calls. Check it in **Details** column of every parameter, 
-e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are required https://api.skypicker.com/flights?flyFrom=PRG&to=LGW&dateFrom=18/06/2017&dateTo=25/06/2017&partner=picky.
-We get all flights from Prague to London, from May 18, 2017 until May 25, 2017
+6. Some of the parameters are **mandatory** for use in specific calls. Check it in the **Details** column of every parameter, 
+e.g. in **flights search** parameters flyFrom, to, dateFrom and dateTo are mandatory: https://api.skypicker.com/flights?flyFrom=PRG&to=LGW&dateFrom=18/06/2017&dateTo=25/06/2017&partner=picky.
+The call will return all flights from Prague to London Gatwick, from May 18, 2017 to  May 25, 2017.  
 
-Correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
+The correct date format is **dd/mm/YYYY**, e.g. 29/05/2015. 
 
 
 #### Places [/places]
-The basic places call is this
+An example of a very basic /places call is the following: 
 
 https://api.skypicker.com/places
 
 #### Search
-The basic flights call could look like this
+The basic flights call could look like this: 
 
 https://api.skypicker.com/flights?flyFrom=PRG&to=LGW&dateFrom=18/06/2017&dateTo=25/06/2017&partner=picky
 
-If there is the partner parameter specified, the response will contain the link directly to Skypicker booking, where user can book the specified flight.
+If the partner parameter is specified, the response will contain the link directly to Skypicker booking, where user can book the specified flight. 
 
-For more specific searches and filters continue to this apiary specification, where every available parameter is described.
+For more specific searches and filters continue to this apiary specification, where every available parameter is described. 
 
-In case you can't find what you're looking for here in docs, please, contact us directly at **api@kiwi.com**.
+In case you can't find what you're looking for in this document, please, contact us directly at **api@kiwi.com**.
 
 ## Group places
 
-Returns the list of Skypicker api ids. This ids has to be used in the SP search (flights API call)
+/places returns a list of Skypicker API IDs. These IDs have to be used in the SP search (flights API call)
 From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), even if they dont appear in the places call
 
-## places [/places{?id,term,locale,zoomLevelThreshold,bounds,v}]
+## places [/places{?id,term,locale,zoomLevelThreshold,lat_lo,lng_lo,lat_hi,lng_hi,bounds,v}]
 
 ### GET [GET]
 
 
 + Parameters
     + id : SK (optional, string) - if given, the call returns the details only for the one specific id
-    + term : br (optional, string) - used for suggestions of geo names,"br" returns city, airport codes or country names beginning with br
+    + term : br (optional, string) - used for suggestions of geo names, "br" returns city, airport codes or country names beginning with br
     + locale : cs (optional, string) - the locale of geo names in response, default is en
     + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown. DEPRECATED
     + lat_lo (optional, float) - latitude of southwest corner of geo box search
@@ -108,31 +110,31 @@ A single flights search.
 
 The google flights like filters (price_from,price_to and the next ones) are not well documented and even not tested for properly functioning, yet. 
 
-## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,typeFlight,passengers,adults,children,infants,flyDays,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,limit,offset,xml,curr,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,booking_token,sort,asc}]
+## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,maxFlyDuration,typeFlight,passengers,adults,children,infants,flyDays,flyDaysType,returnFlyDays,returnFlyDaysType,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,xml,curr,locale,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,maxstopovers,connectionsOnDifferentAirport,returnFromDifferentAirport,returnToDifferentAirport,ref_tasks,innerLimit,preselectedFlightId,selectedAirlines,selectedStopoverAirports,selectedAirlinesExclude,selectedStopoverAirportsExclude,booking_token,offset,limit,sort,asc}]
 
 ### GET [GET]
 
 + Parameters
 
-    + flyFrom (required, string,`CZ`) ... Skypicker api id of the departure destination. 
+    + flyFrom (required, string,`CZ`) ... Skypicker api ID of the departure destination. 
         Accepts multiple values separated by comma, these values might be airport codes, 
         city IDs, two letter country codes, metropolitan codes and radiuses. 
         Radius needs to be in form lat-lon-xkm. E.g. `-23.24--47.86-500km` for places 
-        around Sao Paulo, LON - checks every airport in London, LHR - checks flights 
-        from London Heathrow, UK - flights from United Kingdom 
-    + to (optional, string, `porto`) ... Skypicker api id of the arrival destination. 
-        Accepts the same values in the same format as `flyFrom` parameter. 
-    If you don't include any value you'll get results for all the airports in the world.
-    + dateFrom (required, string,`08/08/2017`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a daterange for the flight departure.**
-        Parameter dateFrom 01/05/2016 and dateTo 30/05/2016 means, that the departure can be anytime between those dates.
-        For the dates of the return flights, use the returnTo&returnFrom or daysInDestinationFrom & daysInDestinationTo parameters
-    + dateTo (required, string,`08/09/2017`) ... search flights until this date (dd/mm/YYYY)
+        around Sao Paulo. 'LON' - checks every airport in London, 'LHR' - checks flights 
+        from London Heathrow, 'UK' - flights from the United Kingdom 
+    + to (optional, string, `porto`) ... Skypicker api ID of the arrival destination. 
+        Accepts the same values in the same format as the `flyFrom` parameter. 
+    If you don't include any value you'll get results for all airports in the world.
+    + dateFrom (required, string,`08/08/2017`) ... search flights from this date (dd/mm/YYYY). **Use parameters dateFrom and dateTo as a date range for the flight departure.**
+        Parameters 'dateFrom=01/05/2016' and 'dateTo=30/05/2016' mean that the **departure** can be anytime between the specified dates.
+        For the dates of the return flights, use the 'returnTo' and 'returnFrom' or 'daysInDestinationFrom' and 'daysInDestinationTo' parameters.  
+    + dateTo (required, string,`08/09/2017`) ... search flights upto this date (dd/mm/YYYY)
 
     + longitudeFrom : 14.0000 (optional, float) - DEPRECATED - please use radiuses 
         specified in **flyFrom** parameter (longitude of the pinpoint for geo based search, 
         for the departure destination)
     + latitudeFrom : 50.2000 (optional, float) - DEPRECATED (lat of the pinpoint for 
-        geo based search, fot the departure destination)
+        geo based search, for the departure destination)
     + radiusFrom : 200 (optional, integer) - DEPRECATED (search radius in km, max 250.
         **radiusFrom** works only with **longitudeFrom** and **latitudeFrom**. 
         In this case, the **flyFrom** parameter is ignored)
@@ -146,16 +148,17 @@ The google flights like filters (price_from,price_to and the next ones) are not 
         **radiusTo** works only with **longitudeTo** and **latitudeTo**. In this case, 
         the **to** parameter is ignored)
     
-    + daysInDestinationFrom : 2 (optional, integer) - the minimal length of stay in the destination given in the **to** parameter. Counts nights, not days
+    + daysInDestinationFrom : 2 (optional, integer) - the minimal length of stay in the destination given in the **to** parameter. **Counts nights, not days**
     + daysInDestinationTo : 14 (optional, integer) - the max length of stay in the destination given in the **to** parameter
         (use only one from the daysInDestination and returnFrom/returnTo parameters. If both of them are given, the API uses the daysInDest parameters
         and the return dates are ignored). When you omit one of these two params, the default value for daysInDestinationFrom is 1 and for daysInDestinationTo is 14.
     
-    + returnFrom : 08/08/2017 (optional, string) - min return of the whole trip (dd/mm/YYYY)
+    + returnFrom : 08/08/2017 (optional, string) - min return date of the whole trip (dd/mm/YYYY)
     + returnTo : 08/09/2017 (optional, string) - max return date of the whole trip (dd/mm/YYYY)
     
+    + maxFlyDuration : 6 (optional, integer) - max flight duration in hours, min value 0
     + typeFlight (optional, string, `oneway`) ... switch for oneway/round flights search - will be deprecated in the near future
-        (until then, you have to use the round parameter if one from the daysInDestination of returndate parameters is given.)
+        (until then, you have to use the round parameter if one from the daysInDestination of return date parameters is given.)
         
         + Values
             + `round`
@@ -167,23 +170,30 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     
     + passengers : 1 (optional, integer) - number of passengers. Default for defining the num of passengers.
     
-    + adults : 1 (optional, integer) - To specify number of adults, children, and infants, you can use adults&children&infants parameters. You have to specify all of those 3 parameters, otherwise the parameter passengers will be used. However, currently childs&infants are considered as adults in our search engine and are not reqiured, default adults value is 1
+    + adults : 1 (optional, integer) - To specify number of adults, children and infants, you can use adults&children&infants parameters. You have to specify all of those 3 parameters, otherwise the parameter passengers will be used. However, currently children&infants are considered as adults in our search engine and are not reqiured, default adults value is 1.
     + children : 0 (optional, integer) - number of children
     + infants : 0 (optional, integer) - number of infants
     
-    + flyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the flight, 0 is Sunday (**flyDaysType** is used to tell if the days should be departure or arrival of the flight,
-        url encoded format for all days: flyDays%5B%5D=0&flyDays%5B%5D=1&flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&flyDays%5B%5D=5&flyDays%5B%5D=6)
+    + flyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the flight, where 0 is Sunday, 1 is Monday, etc.  
+            URL encoded format for all days : 'flyDays%5B%5D=0&flyDays%5B%5D=1&
+            flyDays%5B%5D=2&flyDays%5B%5D=3&flyDays%5B%5D=4&
+            flyDays%5B%5D=5&flyDays%5B%5D=6'
     
-    + flyDaysType (optional, string, `departure`) ... type of set flyDays, 
-        
+    
+    
+    + flyDaysType (optional, string, `departure`) ... type of set flyDays; It is used to specify whether the flight is an arrival or a departure.  
+    
         + Values
             + `departure`
             + `arrival`
 
-    + returnFlyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the departure, 0 is Sunday (**returnFlyDaysType** is used to tell if the days should be departure or arrival of the flight,
-        url encoded format for all days: returnFlyDays%5B%5D=0&returnFlyDays%5B%5D=1&returnFlyDays%5B%5D=2&returnFlyDays%5B%5D=3&returnFlyDays%5B%5D=4&returnFlyDays%5B%5D=5&returnFlyDays%5B%5D=6)
+    + returnFlyDays : [0,1,2,3,4,5,6] (optional, list) - the list of week days for the flight, where 0 is Sunday, 1 is Monday, etc.  
+            URL encoded format for all days: 'returnFlyDays%5B%5D=0&
+            returnFlyDays%5B%5D=1&returnFlyDays%5B%5D=2&
+            returnFlyDays%5B%5D=3&returnFlyDays%5B%5D=4&
+            returnFlyDays%5B%5D=5&returnFlyDays%5B%5D=6)
     
-    + returnFlyDaysType (optional, string, `departure`) ... type of set returnFlyDays
+    + returnFlyDaysType (optional, string, `departure`) ... type of set returnFlyDays; t is used to specify whether the flight is an arrival or a departure.  
         
         + Values
             + `departure`
@@ -193,7 +203,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + onlyWeekends : 0 (optional, boolean) - search flights with departure only on weekends 
     + directFlights : 0 (optional, boolean) - search only for direct flights, can be set to 0 or 1, 0 is default
 
-    + partner : picky (required, string) - partner ID. If present, in the result will be also a link to a specific trip directly to skypicker.com, with the affiliate id included (use picky partner ID for testing)
+    + partner : picky (required, string) - partner ID. If present, the result will include a link to a specific trip directly to skypicker.com, with the affiliate ID included (use picky partner ID for testing)
     + partner_market : us (required, string) - Market from which the request is coming from.
     + v : 2 (optional, integer) - api version, defaults to 1, in case of 2 the response format contains additional information (country codes and names, for now used only on skypicker.com frontend)
     
@@ -377,62 +387,88 @@ The google flights like filters (price_from,price_to and the next ones) are not 
             
     
     + locale (optional, string, `en`) ... the language of city names in the response
-        (more translations to be added)
+        
         + Values
-            + `en`
-            + `cs`
-            + `pl`
-            + `pt`
-            + `it`
-            + `de`
-            + `fr`
-            + `ru`
-            + `hu`
-            + `sk`
-            + `el`
-            + `fi`
-            + `nl`
-            + `se`
+            + `ae`
+            + `ag`
             + `ar`
+            + `at`
+            + `au`
+            + `be`
+            + `bg`
+            + `bh`
             + `br`
-            + `cs`
+            + `by`
+            + `ca`
+            + `ca-fr`
+            + `ch`
+            + `cl`
+            + `cn`
+            + `co`
+            + `ct`
+            + `cz`
             + `da`
             + `de`
+            + `dk`
+            + `ec`
+            + `ee`
             + `el`
             + `en`
             + `es`
-            + `fa`
             + `fi`
             + `fr`
-            + `he`
+            + `gb`
+            + `gr`
+            + `hk`
+            + `hr`
             + `hu`
+            + `id`
+            + `ie`
+            + `il`
+            + `in`
             + `is`
             + `it`
             + `ja`
+            + `jo`
+            + `jp`
             + `ko`
+            + `kr`
+            + `kw`
+            + `kz`
             + `lt`
+            + `mx`
             + `my`
             + `nl`
             + `no`
+            + `nz`
+            + `om`
+            + `pe`
+            + `ph`
             + `pl`
             + `pt`
+            + `qa`
             + `ro`
+            + `rs`
             + `ru`
+            + `sa`
             + `se`
+            + `sg`
             + `sk`
             + `sr`
             + `sv`
             + `th`
             + `tr`
+            + `tw`
+            + `ua`
             + `uk`
-            + `ur`
-            + `yi`
-            + `zh`
-
+            + `us`
+            + `vn`
+            + `za`
+    
     + price_from : 1 (optional, integer) - result filter, minimal price
     + price_to : 10000 (optional, integer) - result filter, maximal price
 
-    + dtimefrom : 00:00 (optional, string) - result filter, min. departure time (11:00 means 11AM, 23:00 means 11PM, everyone of this time filter has the some format)
+    + dtimefrom : 00:00 (optional, string) - result filter, min. departure time (11:00 means 11AM, 23:00 means 11PM)
     + dtimeto : 00:00 (optional, string)  - result filter, max departure time
     + atimefrom : 00:00 (optional, string) - result filter, min arrival time
     + atimeto : 00:00 (optional, string)  - result filter, max arrival time
@@ -440,8 +476,31 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + returndtimeto : 00:00 (optional, string) - result filter, max dep. time of the returning flight
     + returnatimefrom : 00:00 (optional, string) - result filter, min arrival time of the returning flight
     + returnatimeto : 00:00 (optional, string) - result filter, min arrival time of the returning flight
-    + stopoverfrom : 00:00 (optional, string) - result filter, min length of stopover, 48:00 means 2 days here (48 hours)
-    + stopoverto : 00:00 (optional, string) - result filter, max length of stopover, 48:00 means 2 days here (48 hours)
+    + stopoverfrom : 00:00 (optional, string) - result filter, min length of stopover, 48:00 means 2 days (48 hours)
+    + stopoverto : 00:00 (optional, string) - result filter, max length of stopover, 48:00 means 2 days (48 hours)
+    + maxstopovers : 2 (optional, integer) - max number of stopovers
+    + connectionsOnDifferentAirport : 1 (optional, integer) - whether or not to search for connections on different airport, can be set to 0 or 1, 1 is default
+    + returnFromDifferentAirport : 1 (optional, integer) - whether or not to search for flights leaving from a different airport than where the customer landed, can be set to 0 or 1, 1 is default
+    + returnToDifferentAirport : 1 (optional, integer) - whether or not to search for flights returning to a different airport than the one from where the customer departed, can be set to 0 or 1, 1 is default
+    + ref_tasks : null (optional, string) - internal use only, tasks for refresh, it is used to force refresh of flights specified in the structure
+    + innerLimit : 300 (optional, integer) - defaults to 300
+
+    + selectedAirlines : null (optional, string) - a list of airlines (IATA codes) separated by ',' (commas) that should / should not be included in the search.  
+    The selection or omission of the airline depends on the 'selectedAirlinesExclude' parameter.  Select a list of airlines and use the 
+    'selectedAirlinesExclude' parameter to specify whether or not the selected airlines should be excluded/included in the search.  
+    
+    + selectedAirlinesExclude : False (optional, boolean) - it can be thought of as a switch for the 'selectedAirlines' parameter where
+    'False=select' and 'True=omit'.  If set to *true* the search returns combinations where all flights in this combination are served by one 
+    of the given airline codes.  If set to *false* the search returns combinations where none of the flights in this combinations is served by any given
+    airline code.  
+    
+    + selectedStopoverAirports : null (optional, string) - a list of stopover airports (IATA codes) separated by ',' (commas) that should / should not be included
+    in the search.  The selection or omission of the airport depends on the 'selectedStopoverAirportsExclude' parameter.  Select a list of airports 
+    and use the 'selectedStopoverAirportsExclude' parameter to specify whether or not the selected airport should be excluded/included in the search.  
+    
+    + selectedStopoverAirportsExclude : False (optional, boolean) -iIt can be thought of as a switch for the 'selectedStopoverAirports' parameter where
+    'False=include,select' and 'True=exclude,omit'.  If set to *true* the search returns combinations where a stopover is through one of the given 
+    airports.  If is set to *false* the search returns combinations where none of stopovers is through any of given airports.  
 
     + booking_token : hashed data (optional, string) - a hash containing the encrypted flight data. This hash should be passed to check flights and save booking API calls in the booking v2 API
     
@@ -612,27 +671,39 @@ The google flights like filters (price_from,price_to and the next ones) are not 
          ]
         }
 
+## Group airlines
+
+This GET call does not have any specific parameters.  It enables the user to get a list of all airlines (both LC - legacy carrier and LCC - low cost carrier) together with their codes.  
+The website to use is https://api.skypicker.com/airlines?
+
+## Group airline-logos
+
+This website provides access to all airlines' logos.  To get the desired airline logo, replace the <iata_code> with an actual airline code in the following link : 
+https://images.kiwi.com/airlines/64/<iata_code>.png
+
+E.g.: https://images.kiwi.com/airlines/64/U2.png
+
 ## Group flights_multi
 
 
-This call is able to do multi-city searches in parallel. The single search queries dont have to be connected in any way.
+This call is able to do multi-city searches in parallel. The single search queries don't have to be connected in any way.
 
-Accepts the same parameters as the /flights API call.
+It accepts the same parameters as the /flights API call.
 
 To do a request, send a POST json payload with a list of API parameters for each search query.
 
-A sample python code for this call could look like the following (this is an example, all of the /flights parameters can be used)
+A sample python code for this call could look like the following (this is an example - all of the /flights parameters can be used)
 
-In the response root, the results field contains a list of responses for the posted queries. Each single element contains the same response as it would be a /flights API call.
+In the response root, the results field contains a list of responses for the posted queries. Every single element contains the same response as it would if /flights API call were used.
 
-Please keep in mind, that valid json quotes are only ", not '
+Please keep in mind, that valid json quotes are only ", not '.  
 
 Each result has its own deeplink which can be used to forward the user to Skypicker booking e.g. 
 https://www.skypicker.com/deep?type=default&from=PRG&to=LGW&departure=24-05-2017&flightsId=EJ635397264_189412776%7CEJ635397264_203224652&affilid=picky&price=78&passengers=1&lang=en&currency=GBP&booking_token=GamFTRHoBQ%2Fv6QB8IrykhpoVGKB0KA6sVANbFz24Dysa%2Btv8RDKePuXd0gMoWNZtroOXF%2BfO3fCLZ2ifi2bX%2F6pARs2%2BL4SCj%2FMPCz7A8VhRbcA3l2oWqbFdLAgK5KoX1GbT8rDRzbX74ht5Kt6dSHkGKFj%2F60E5Te1YshXVQhgZWzaFAuQ%2BZQ8X%2BMZ9YTwafUFV6K64YKFEF1%2BLPpUlcmqGNY9vzERgsQEfNLUUrCpDbkVRsgcXZMo8I3kt%2BG9B0a6IUViEKm328bxTLQOyAbsv0Eyf469eMuPyNNupwBEBDHWxfYgRz8lsayiRSXSbRMa4i1FpG0buiPdstLs8I3zRZsBvkzx4N525ePFeqMDhDCr6uBkf6xSkMmjiQAUBlsjVW2lvtQJGFr2ihNNuNlZTAL86RR22aGJ0abCzvcY%3D
 
 The total_price is the sum of all the prices.
 
-The main_booking_token in the response root should be used for booking the flights, instead the booking_token in each single search query result.
+The main_booking_token in the response root should be used for booking the flights, instead of the booking_token in each single search query result.
 
 ## flights_multi [/flights_multi{?partner,locale,curr}]
 
@@ -650,7 +721,6 @@ The main_booking_token in the response root should be used for booking the fligh
         {"to": "AMS", "flyFrom": "PRG", "directFlights": 0, "dateFrom": "11/06/2017", "dateTo": "28/06/2017"},
         {"to": "OSL", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "01/07/2017", "dateTo": "11/07/2017"}
     ]}
-ligth
 
 ## Group check_flights
 
@@ -670,7 +740,7 @@ Request JSON data:
 
 + price - price of the trip
 + currency - currency (optional, default is EUR)
-+ segments - contains all flight segment what is needed to book with one itenerary:
++ segments - contains all flight segments that are needed to book with one itenerary:
 
     + airline - code of airline
     + dtime - departure time in local time of single flight
@@ -678,8 +748,8 @@ Request JSON data:
     + src - departure airport
     + dst - destination airport
     + flight_no - flight number
-    + itinerary_id - increment id of itinerary what will be used as pairing key what needs to be booked together as one pnr.
-    + fare_code(optional) - fare code prefered on booking
+    + itinerary_id - increment id of itinerary what will be used as a pairing key that needs to be booked together as one pnr.
+    + fare_code - fare code preferred on booking (optional)
     + booking_class - minimal booking class (IATA class code). Example: T, B, Y (optional)
     + fare_basis_code - fare code used to calculate prices. Example: QLOWMO, K6OWA (optional)
 
@@ -691,11 +761,11 @@ Request JSON data:
     
 Date sent in response:
 
-+ request - in request will be all requested details.
-+ booking_details - informations needed to process booking
++ request - there will be all requested details.
++ booking_details - information needed to process the booking
     + price - verified price of flights for how much we can process that flights booking
-    + valid - if we are unable process this booking, than valid will be false. (It can happen when flights are not available anymore)
-    + booking_token - booking token what will be used for call to booking api.
+    + valid - if we are unable process this booking, valid will = 'false'. (this can happen when flights are not available anymore)
+    + booking_token - booking token that will be used for call to booking api.
     + guarantee_applied - list of connections where guarantee will be applied
 
 
