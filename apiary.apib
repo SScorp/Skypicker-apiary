@@ -65,7 +65,7 @@ If the partner parameter is specified, the response will contain the link direct
 
 For more specific searches and filters continue to this apiary specification, where every available parameter is described. 
 
-In case you can't find what you're looking for in this document, please, contact us directly at **api@kiwi.com**.
+In case you can't find what you're looking for in this document please contact us directly at **api@kiwi.com**.
 
 ## Group places
 
@@ -82,10 +82,10 @@ From v2 (May 2014) flights also accepts parameters for city areas (LON,PAR...), 
     + term : br (optional, string) - used for suggestions of geo names, "br" returns city, airport codes or country names beginning with br
     + locale : cs (optional, string) - the locale of geo names in response, default is en
     + zoomLevelThreshold : `3` (optional, integer) - zoom level on which this place should be shown. DEPRECATED
-    + lat_lo (optional, float) - latitude of southwest corner of geo box search
-    + lng_lo (optional, float) - longitude of southwest corner of geo box search
-    + lat_hi (optional, float) - latitude of northeast corner of geo box search
-    + lng_hi (optional, float) - longitude of northeast corner of geo box search
+    + lat_lo (optional, float, `45.090329`) ... latitude of southwest corner of geo box search, 45.09 is also acceptable
+    + lng_lo (optional, float, `1.596681`) ... longitude of southwest corner of geo box search, 1.59 is also acceptable
+    + lat_hi (optional, float, `53.905417`) ... latitude of northeast corner of geo box search, 53.90 is also acceptable
+    + lng_hi (optional, float, `23.217775`) ... longitude of northeast corner of geo box search, 23.21 is also acceptable
     + v : 1 (optional, integer)  - the api version, from v = 2 it returns the new api ids for the whole world. Every new partner should use v = 3
 
 + Request
