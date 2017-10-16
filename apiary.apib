@@ -144,6 +144,8 @@ A single flights search.
 
 The google flights like filters (price_from,price_to and the next ones) are not well documented and even not tested for properly functioning, yet. 
 
+**Please note, the fields 'dtime' and 'atime' are displayed in UNIX time. To display these correctly on your website, please only convert from UNIX to human readable time. Do not convert the time between the time zones.  Doing so, might cause incorrect information being displayed.**  
+
 ## flights [/flights{?flyFrom,to,dateFrom,dateTo,longitudeFrom,latitudeFrom,radiusFrom,longitudeTo,latitudeTo,radiusTo,daysInDestinationFrom,daysInDestinationTo,returnFrom,returnTo,maxFlyDuration,typeFlight,passengers,adults,children,infants,flyDays,flyDaysType,returnFlyDays,returnFlyDaysType,oneforcity,onlyWorkingDays,onlyWeekends,one_per_date,directFlights,locale,partner,partner_market,v,xml,curr,locale,price_from,price_to,dtimefrom,dtimeto,atimefrom,atimeto,returndtimefrom,returndtimeto,returnatimefrom,returnatimeto,stopoverfrom,stopoverto,maxstopovers,connectionsOnDifferentAirport,returnFromDifferentAirport,returnToDifferentAirport,ref_tasks,innerLimit,selectedAirlines,selectedStopoverAirports,selectedAirlinesExclude,selectedStopoverAirportsExclude,booking_token,offset,limit,sort,asc}]
 
 ### GET [GET]
@@ -502,7 +504,7 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     + price_from : 1 (optional, integer) - result filter, minimal price
     + price_to : 10000 (optional, integer) - result filter, maximal price
 
-    + dtimefrom : 00:00 (optional, string) - result filter, min. departure time (11:00 means 11AM, 23:00 means 11PM)
+    + dtimefrom : 00:00 (optional, string) - result filter, min. departure time (11:00 means 11AM, 23:00 means 11PM).  
     + dtimeto : 00:00 (optional, string)  - result filter, max departure time
     + atimefrom : 00:00 (optional, string) - result filter, min arrival time
     + atimeto : 00:00 (optional, string)  - result filter, max arrival time
