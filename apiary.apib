@@ -111,6 +111,195 @@ http://docs.locations10.apiary.io/#
             "id": "BRQ"
         }
 
+## Group Locations
+'Locations' is a simple API used to search, suggest and resolve locations in various situations.
+
+## Locations Collection [/]
+
+### Locale setting
+Every search in this collection accepts `locale` 
+GET argument which sets output locale to your specified locale.
+This is optional and defaults to locale 'en'.
+
+Available locales:
+
+|       |       |       |       |       |       |
+|------ |------ |------ |------ |------ |------ |
+| ar-AE | cs-CZ | da-DK | de-DE | el-GR | en-US |
+| es-ES | fi-FI | fr-FR | hu-HU | is-IS | it-IT |
+| iw-IL | ja-JP | ko-KR | lt-LT | nl-NL | no-NO |
+| pl-PL | pt-BR | pt-PT | ro-RO | ru-RU | sk-SK |
+| sr-RS | sv-SE | th-TH | tr-TR | uk-UA | zh-CN |
+| zh-TW |
+
+
+### Output location types
+Every search in this collection accepts `location_types` list, which is optional and decides 
+what types of locations will be on the output. If not specified the output will contain all types, such as 
+`airport`, `city` and `country`. You are able to specify one or more location types by 
+appending more `&location_types=` to your query string.
+
+### Limiting the output
+Every search request has a `limit` parameter to set maximum number of results. The default is 20.
+
+### Sorting the output
+Dump requests as well as search requests by radius and box can have the output sorted according 
+to specified `sort` parameters. The default sorting order is set to 'ascending'.  Descending 
+order can be set by adding a minus sign in front of the parameter, eg. `-rank`. Sorting by `name` is 
+localized according to specified locale. Multiple sorting parameters can be set.  The order of their 
+appearance in url determines priority in sorting. Keep in mind that to use `type` to sort, you need to
+use `_type`.
+
+### Search by query [GET /?term={term}&locale={locale}&location_types={location_types}&limit={limit}]
++ Parameters
+    + term (required, string, `PRG`) ... searched term (for suggestions).  This parameter expects a full IATA code.  
+    If IATA code is not given, the search will go through other available fields: 'id', 'name' or 'code' of the 
+        location. 
+        It also depends on the 'location_types' specified eg. airport, city, country.  The search that is used 
+        behind the scenes is elasticsearch.  It returns data based on relevancy and many other factors.  
+    + locale (optional, string, `en-US`) ... desired locale output - this is the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
+    + location_types (optional, list, `airport`) ... desired location output, accepted values: 
+    `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
+    + limit (optional, integer, `100`) ... desired number of results in the output
+    
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[City, Subdivision, Country, Airport])
+
+### Search by radius [GET /?type=radius&lat={lat}&lon={lon}&radius={radius}&locale={locale}&location_types={location_types}&limit={limit}&sort={sort}]
++ Parameters
+    + lat (required, float, `40.730610`) ... latitude of the centre point of the search.  `40.7` is also acceptable.  
+    + lon (required, float, `-73.935242`) ... longitude of the centre point of the search.  `-73.9` is also acceptable.  
+    + radius (required, float, `250`) ... the radious defaults to 250 km but can be changed
+    + locale (optional, string, `en-US`) ... desired locale output - this is the the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
+    
+    + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
+    `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
+    + limit (int, optional) - desired number of results in the output
+    + sort (string, optional) - desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[City, Subdivision, Country, Airport])
+
+### Search by box [GET /?type=box&low_lat={low_lat}&low_lon={low_lon}&high_lat={high_lat}&high_lon={high_lon}&locale={locale}&location_types={location_types}&limit={limit}&sort={sort}]
++ Parameters
+    + low_lat (required, float, `40.200610`) ...  latitude of southwest corner of geo box search; `40.2` is also acceptable.
+    + low_lon (required, float, `-74.624328`) ... longitude of southwest corner of geo box search; `-74.6` is also acceptable.  
+    + high_lat (required, float, `44.763212`) ... latitude of northeast corner of geo box search; `44.7` is also acceptable.
+    + high_lon (required, float, `-73.376543`) ... longitude of northeast corner of geo box search; `-73.3` is also acceptable.  
+    + locale (optional, string, `en-US`) ... desired locale output - this is the the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
+    + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
+   `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
+    + limit (optional, integer, `25`) ... desired number of results in the output
+    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[City, Country, Airport])
+
+### Get by id [GET /?type=id&id={id}&locale={locale}]
++ Parameters
+    + id (required, string, `ZW`) ... this is the exact IATA airport or ISO3166 location code - station, airport, city, autonomous_territory, subdivision, country
+    + locale (optional, string, `en-US`) ... desired locale output - this is the the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[City, Subdivision, Country, Airport])
+
+### Get dump [GET /?type=dump&locale={locale}&location_types={location_types}&limit={limit}&sort={sort}]
++ Parameters
+    + locale (optional, string, `en-US`) ... desired locale output - this is the the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
+    + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
+    `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
+    + limit (optional, integer, `25`) ... desired number of results in the output
+    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[City, Subdivision, Country, Airport])
+
+## Slugs Collection [/?type=slug]
+
+### Search by seo url [GET /?type=slug&term={term}&locale={locale}]
++ Parameters
+    + term (required, string, `albany-new-york-united-states`) ... this field expects the exact slug code of the `airport`, `autonomous_territory`, `city`, `country`, `subdivision`
+    + locale (optional, string, `en-US`) ... desired locale output - this is the the language of the results.  
+        Should any other locale be used other than the specified locales, en-US is used.  
++ Response 200 (application/json)
+    + Attributes
+        + locations (array[Airport, City, Subdivision, Country])
+
+
+# Data Structures
+
+
+## Airport (object)
++ rank: 0
++ type: airport
++ id: LCY
++ name: London City Airport
++ slug: `london-city-airport`
++ alternative_names (array)
++ city (object)
+    + id: london_gb (string)
+    + name: London (string)
+    + slug: london (string)
+    + country (object)
+        + id: GB (string)
+        + slug: `united-kingdom` (string)
+        + name: United Kingdom (string)
++ location (object)
+    + lon: 0.055278
+    + lat: 51.505278
+
+
+## City (object)
++ name: London
++ slug: `london-ontario-canada`
++ rank: 46
++ code: YXU
++ airports: 1
++ type: city
++ population: null
++ id: london_on_ca
++ alternative_names (array)
++ location (object)
+    + lon: `-81.243177`
+    + lat: 42.9869502
++ country (object)
+    + slug: `canada`
+    + name: Canada
+    + id: CA
+
+## Subdivision (object)
++ name: Queensland
++ slug: `queensland-australia`
++ rank: 127
++ id: QL_AU
++ code: QLD
++ type: subdivision
++ alternative_names (array)
++ country (object)
+    + name: Australia
+    + slug: australia
+    + id: AU
+    
+
+## Country (object)
++ name: United Kingdom
++ type: country
++ slug: `united-kingdom`
++ rank: 127
++ id: GB
++ alternative_names (array)
+
+## Slug (object)
++ type: slug,
++ slug: edinburg,
++ id: edinburg_us_1
+
 ## Group airlines
 
 This GET call does not have any specific parameters.  It enables the user to get a list of all airlines (both LC - legacy carrier and LCC - low cost carrier) together with their codes.  
@@ -741,7 +930,7 @@ The main_booking_token in the response root should be used for booking the fligh
 
 + Request (application/json)
         
-    {"requests": [
+Adding     {"requests": [
         {"to": "AMS", "flyFrom": "PRG", "directFlights": 0, "dateFrom": "11/06/2017", "dateTo": "28/06/2017"},
         {"to": "OSL", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "01/07/2017", "dateTo": "11/07/2017"}
     ]}
