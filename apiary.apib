@@ -348,7 +348,8 @@ The google flights like filters (price_from,price_to and the next ones) are not 
         city IDs, two letter country codes, metropolitan codes and radiuses. 
         Radius needs to be in form lat-lon-xkm. E.g. `-23.24--47.86-500km` for places 
         around Sao Paulo. 'LON' - checks every airport in London, 'LHR' - checks flights 
-        from London Heathrow, 'UK' - flights from the United Kingdom 
+        from London Heathrow, 'UK' - flights from the United Kingdom.  The number of decimal 
+        places is limited to 6.  
     + to (optional, string, `porto`) ... Skypicker api ID of the arrival destination. 
         Accepts the same values in the same format as the `flyFrom` parameter. 
     If you don't include any value you'll get results for all airports in the world.
