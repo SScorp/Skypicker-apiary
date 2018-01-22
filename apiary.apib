@@ -730,8 +730,6 @@ The google flights like filters (price_from,price_to and the next ones) are not 
     'False=include,select' and 'True=exclude,omit'.  If set to *true* the search returns combinations where a stopover is through one of the given 
     airports.  If is set to *false* the search returns combinations where none of stopovers is through any of given airports.  
 
-    + booking_token : hashed data (optional, string) - a hash containing the encrypted flight data. This hash should be passed to check flights and save booking API calls in the booking v2 API
-    
     + offset : 0 (optional, integer) - enable pagination and set offset
     + limit : 30 (optional, integer) - limit number of results, max is 200
     + sort : price (optional, string) - sorts the results by quality, price, date or duration. Price is the default value
@@ -933,10 +931,10 @@ The main_booking_token in the response root should be used for booking the fligh
 
 + Request (application/json)
         
-Adding     {"requests": [
+        Adding     {"requests": [
         {"to": "AMS", "flyFrom": "PRG", "directFlights": 0, "dateFrom": "11/06/2017", "dateTo": "28/06/2017"},
         {"to": "OSL", "flyFrom": "AMS", "directFlights": 0, "dateFrom": "01/07/2017", "dateTo": "11/07/2017"}
-    ]}
+        ]}
 
 ## Group check_flights
 
