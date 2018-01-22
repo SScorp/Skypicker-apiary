@@ -906,6 +906,8 @@ It accepts the same parameters as the /flights API call.
 
 To do a request, send a POST json payload with a list of API parameters for each search query.
 
+The maximum number of segments in each request is 9 (If a higher number of routes is requested in /flights_multi POST method, all that they receive is an empty result - `[]`)
+
 A sample python code for this call could look like the following (this is an example - all of the /flights parameters can be used)
 
 In the response root, the results field contains a list of responses for the posted queries. Every single element contains the same response as it would if /flights API call were used.
