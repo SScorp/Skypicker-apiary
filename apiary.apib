@@ -180,7 +180,7 @@ use `_type`.
     + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
     `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
     + limit (int, optional) - desired number of results in the output
-    + sort (string, optional) - desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
+    + sort (string, optional) - desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  The sorting method called 'rank' expresses the significance of the location, 'sort=rank'.  
 + Response 200 (application/json)
     + Attributes
         + locations (array[City, Subdivision, Country, Airport])
@@ -196,7 +196,7 @@ use `_type`.
     + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
    `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
     + limit (optional, integer, `25`) ... desired number of results in the output
-    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
+    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  The sorting method called 'rank' expresses the significance of the location, 'sort=rank'.  
 + Response 200 (application/json)
     + Attributes
         + locations (array[City, Country, Airport])
@@ -217,7 +217,7 @@ use `_type`.
     + location_types (optional, list, `airport`) ... desired location types of the search.  Accepted values: 
     `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
     + limit (optional, integer, `25`) ... desired number of results in the output
-    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  
+    + sort (optional, string, `name`) ... desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  The sorting method called 'rank' expresses the significance of the location, 'sort=rank'.  
 + Response 200 (application/json)
     + Attributes
         + locations (array[City, Subdivision, Country, Airport])
