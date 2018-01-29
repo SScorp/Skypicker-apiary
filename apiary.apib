@@ -31,14 +31,14 @@ The rules are the same for every search except for deeplink! For more informatio
 1. Always **start with** https://api.skypicker.com/
 
 2. Choose **one specific call** from the list below (places, flights, flights_multi, check_flights, save_booking, paymill_payment, zooz_payment, watchdog), 
-e.g. https://api.skypicker.com/places
+e.g. https://api.skypicker.com/locations/
 
 3. For **specific searches** and filters use " **?** " after the chosen call, e.g. /places?
 4. Then **choose and specify parameters** from specific call list, where every available parameter is described. 
-Choose one of them and use it in its exact form (case sensitive) with " **=** ". Then **set a value** of the parameter, e.g. https://api.skypicker.com/places?term=br
+Choose one of them and use it in its exact form (case sensitive) with " **=** ". Then **set a value** of the parameter, e.g. https://api.skypicker.com/locations?term=br
 "Term" is used for geo names and "br" returns city, airport codes or country names beginning with "br".
 
-5. You may want to **combine more parameters**.  You must place an ampersand " **&** " between the paramenters to separate them, e.g. https://api.skypicker.com/places?term=br&locale=cs
+5. You may want to **combine more parameters**.  You must place an ampersand " **&** " between the paramenters to separate them, e.g. https://api.skypicker.com/locations?term=br&locale=cs
 This call will return all geo names beginning with br in Czech language.
 
 6. Some of the parameters are **mandatory** for use in specific calls. Check it in the **Details** column of every parameter, 
@@ -52,11 +52,6 @@ Deeplinking is a methodology for launching a native mobile application via a lin
 a unique url to a defined action in a mobile app or a web page, seamlessly linking users to relevant content. When a partner ID is used, our search results
 include a deeplink.  This deeplink - when clicked - takes the user to www.kiwi.com booking page.  It will contain all of the required data as per the search results.  
 
-
-#### Places [/places]
-An example of a very basic /places call is the following: 
-
-https://api.skypicker.com/places
 
 #### Search
 The basic flights call could look like this: 
