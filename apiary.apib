@@ -147,7 +147,7 @@ localized according to specified locale. Multiple sorting parameters can be set.
 appearance in url determines priority in sorting. Keep in mind that to use `type` to sort, you need to
 use `_type`.
 
-### Search by query [GET /locations?term={term}&locale={locale}&location_types={location_types}&limit={limit}]
+### Search by query [GET /locations?term={term}&locale={locale}&location_types={location_types}&limit={limit}&sort={sort}]
 + Parameters
     + term (required, string, `PRG`) ... searched term (for suggestions).  This parameter expects a full IATA code.  
     If IATA code is not given, the search will go through other available fields: 'id', 'name' or 'code' of the 
@@ -159,6 +159,7 @@ use `_type`.
     + location_types (optional, list, `airport`) ... desired location output, accepted values: 
     `station`, `airport`, `city`, `autonomous_territory`, `subdivision`, `country`.  To use more than one `location_types`, use `&location_types=`
     + limit (optional, integer, `100`) ... desired number of results in the output
+    + sort (string, optional) - desired order of the output.  For A->Z use 'sort=name', for Z->A use 'sort=-name'.  The sorting method called 'rank' expresses the significance of the location, 'sort=rank'.  
     
 + Response 200 (application/json)
     + Attributes
